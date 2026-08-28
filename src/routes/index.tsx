@@ -580,44 +580,15 @@ function Index() {
                 </span>
               </div>
 
-              {/* 2x2 Bento Interactive Cards Grid */}
+              {/* 2x2 Bento Interactive Cards Grid - Fully Database Driven */}
               <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-3 sm:pt-4">
-                {[
-                  {
-                    name: "ChatGPT Plus",
-                    category: "AI Suite",
-                    emoji: "🤖",
-                    tagline: "GPT-4o & Canvas",
-                    bg: "bg-brand-lime",
-                  },
-                  {
-                    name: "Canva Pro",
-                    category: "Design",
-                    emoji: "🎨",
-                    tagline: "Brand Kit & AI Magic",
-                    bg: "bg-brand-cyan",
-                  },
-                  {
-                    name: "Spotify Premium",
-                    category: "Music",
-                    emoji: "🎵",
-                    tagline: "Ad-Free & Lossless",
-                    bg: "bg-brand-pink",
-                  },
-                  {
-                    name: "Netflix 4K",
-                    category: "Streaming",
-                    emoji: "🎬",
-                    tagline: "Ultra HD Multi-Screen",
-                    bg: "bg-brand-yellow",
-                  },
-                ].map((item) => {
+                {heroServices.map((item) => {
                   const isSelected = selected.includes(item.name);
                   return (
                     <div
-                      key={item.name}
+                      key={item.id}
                       onClick={() => toggleService(item.name)}
-                      className={`cursor-pointer rounded-xl sm:rounded-2xl border-2 border-foreground p-2.5 sm:p-3.5 text-left transition-all ${item.bg} ${
+                      className={`cursor-pointer rounded-xl sm:rounded-2xl border-2 border-foreground p-2.5 sm:p-3.5 text-left transition-all ${item.bg_class || "bg-card"} ${
                         isSelected
                           ? "shadow-brutal -translate-y-1 ring-2 ring-foreground"
                           : "shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal"
@@ -639,7 +610,7 @@ function Index() {
                         {item.name}
                       </p>
                       <p className="text-[9px] sm:text-[10px] font-bold text-foreground/80 truncate mt-0.5">
-                        {item.tagline}
+                        {item.category} • Free Access
                       </p>
                     </div>
                   );
