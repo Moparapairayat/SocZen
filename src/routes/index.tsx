@@ -490,19 +490,11 @@ function Index() {
       {/* Hero Section - Spotlight & Live Interactive Showcase */}
       <section
         id="top"
-        className="relative mx-auto flex flex-col items-center justify-center px-4 pb-12 pt-3 sm:px-6 sm:pb-16 sm:pt-8 text-center overflow-hidden"
         className="relative mx-auto flex flex-col items-center justify-center px-4 pb-12 pt-6 sm:px-6 sm:pb-16 sm:pt-10 md:pt-14 text-center overflow-hidden"
       >
         {/* Clean Subtle Grid Lines */}
         <div className="hero-grid-lines pointer-events-none absolute inset-0 opacity-20" />
 
-        {/* Top Trust Capsule */}
-        <div className="relative z-10 inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-4 py-1.5 text-xs sm:text-sm font-black shadow-brutal-sm">
-          <span className="flex h-2 w-2 rounded-full bg-brand-lime animate-ping" />
-          <Gift className="h-4 w-4 text-brand-pink" />
-          100% Free Access Platform
-          <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
-          <span className="text-brand-violet dark:text-brand-cyan">Zero Credit Card</span>
         {/* Top Trust Capsule - Mobile Optimized & Spaced */}
         <div className="relative z-10 inline-flex max-w-[92vw] items-center gap-1.5 sm:gap-2 rounded-full border-2 border-foreground bg-card px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-black shadow-brutal-sm">
           <span className="flex h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-brand-lime animate-ping shrink-0" />
@@ -513,14 +505,11 @@ function Index() {
         </div>
 
         {/* Main Headline */}
-        <div className="relative z-10 mt-5 sm:mt-7 max-w-4xl">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05]">
         <div className="relative z-10 mt-4 sm:mt-6 max-w-4xl">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] sm:leading-[1.05]">
             Premium Subscriptions,
             <span className="mt-1.5 sm:mt-2.5 block text-gradient-hero">100% Free Forever.</span>
           </h1>
-          <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-sm sm:text-lg leading-relaxed text-muted-foreground font-medium">
           <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-xs sm:text-base md:text-lg leading-relaxed text-muted-foreground font-medium">
             Pick your favorite creator & productivity tools. Send a quick 30-second request, and
             track your credentials live with a single code.
