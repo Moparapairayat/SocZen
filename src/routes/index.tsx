@@ -355,7 +355,7 @@ function Index() {
     } catch (error) {
       setTrackedRequest(null);
       setTrackingError(
-        error instanceof Error ? error.message : "Could not load the request timeline."
+        error instanceof Error ? error.message : "Could not load the request timeline.",
       );
     } finally {
       setTrackingLoading(false);
@@ -487,190 +487,125 @@ function Index() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section - Spotlight & Live Interactive Showcase */}
       <section
         id="top"
-        className="relative mx-auto flex min-h-[calc(100svh-5.25rem)] max-w-6xl items-stretch px-3 pb-8 pt-2 sm:min-h-[calc(100svh-7.5rem)] sm:px-6 sm:pb-12 sm:pt-6"
+        className="relative mx-auto flex flex-col items-center justify-center px-4 pb-12 pt-3 sm:px-6 sm:pb-16 sm:pt-8 text-center overflow-hidden"
       >
-        <div className="hero-grid-lines pointer-events-none absolute inset-0 opacity-45" />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -left-20 top-[-5.5rem] h-64 w-64 rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklab, var(--brand-pink) 34%, transparent)" }}
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute right-[-4rem] top-10 h-56 w-56 rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklab, var(--brand-cyan) 28%, transparent)" }}
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-[-5rem] left-1/2 h-56 w-56 -translate-x-1/2 rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklab, var(--brand-yellow) 34%, transparent)" }}
-        />
+        {/* Clean Subtle Grid Lines */}
+        <div className="hero-grid-lines pointer-events-none absolute inset-0 opacity-20" />
 
-        <div className="relative grid w-full gap-6 sm:gap-8 py-2 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
-          {/* Left Column Content */}
-          <div className="flex max-w-3xl flex-col justify-center text-center lg:text-left">
-            <div className="w-fit mx-auto lg:mx-0 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border-2 border-foreground bg-card/90 px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-sm font-black shadow-brutal-sm">
-              <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-pink" />
-              100% Free Access
-              <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
-              No Credit Card Needed
-            </div>
+        {/* Top Trust Capsule */}
+        <div className="relative z-10 inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card px-4 py-1.5 text-xs sm:text-sm font-black shadow-brutal-sm">
+          <span className="flex h-2 w-2 rounded-full bg-brand-lime animate-ping" />
+          <Gift className="h-4 w-4 text-brand-pink" />
+          100% Free Access Platform
+          <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
+          <span className="text-brand-violet dark:text-brand-cyan">Zero Credit Card</span>
+        </div>
 
-            <div className="mt-4 sm:mt-6">
-              <h1 className="text-3xl font-black leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.35rem]">
-                Premium tools,
-                <span className="mt-1.5 sm:mt-2 block text-gradient-hero">without the monthly bills.</span>
-              </h1>
-              <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-xs sm:text-base leading-5 sm:leading-7 text-muted-foreground lg:mx-0 font-medium">
-                Pick the premium tools you need (ChatGPT, Canva, Netflix, Spotify & more). Tell us what you're creating, and track your request live with a single code.
-              </p>
-            </div>
+        {/* Main Headline */}
+        <div className="relative z-10 mt-5 sm:mt-7 max-w-4xl">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05]">
+            Premium Subscriptions,
+            <span className="mt-1.5 sm:mt-2.5 block text-gradient-hero">100% Free Forever.</span>
+          </h1>
+          <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-sm sm:text-lg leading-relaxed text-muted-foreground font-medium">
+            Pick your favorite creator & productivity tools. Send a quick 30-second request, and
+            track your credentials live with a single code.
+          </p>
+        </div>
 
-            <div className="mt-5 sm:mt-6 flex flex-col items-stretch gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-              <Button
-                size="lg"
-                onClick={scrollToForm}
-                className="w-full sm:w-auto rounded-full border-2 border-foreground bg-gradient-cta px-6 sm:px-9 py-4 sm:py-6 text-sm sm:text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none"
-              >
-                Get Free Access <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-              <Button
-                type="button"
-                onClick={scrollToTracker}
-                className="w-full sm:w-auto rounded-full border-2 border-foreground bg-card px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base font-bold text-foreground shadow-brutal-sm transition-all hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none"
-              >
-                Track Live Request
-              </Button>
-            </div>
+        {/* Call to Actions */}
+        <div className="relative z-10 mt-6 sm:mt-8 flex flex-col items-stretch sm:flex-row sm:items-center justify-center gap-3 w-full sm:w-auto">
+          <Button
+            size="lg"
+            onClick={scrollToForm}
+            className="rounded-full border-2 border-foreground bg-gradient-cta px-8 sm:px-10 py-4 sm:py-6 text-sm sm:text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none"
+          >
+            Get Free Access Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+          </Button>
+          <Button
+            type="button"
+            onClick={scrollToTracker}
+            className="rounded-full border-2 border-foreground bg-card px-7 sm:px-9 py-4 sm:py-6 text-sm sm:text-base font-bold text-foreground shadow-brutal-sm transition-all hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none"
+          >
+            <Search className="mr-2 h-4 w-4" /> Track Request
+          </Button>
+        </div>
 
-            {/* Structured 3-Column Stats - Fully Responsive */}
-            <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-2.5 max-w-lg mx-auto lg:mx-0 w-full">
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-base sm:text-xl font-black">{heroStats[0]?.value}</p>
-                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Available Tools</p>
-              </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-base sm:text-xl font-black">30s</p>
-                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Quick Request</p>
-              </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-base sm:text-xl font-black">1 Code</p>
-                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Live Tracking</p>
-              </div>
-            </div>
+        {/* 3 Stats Bar */}
+        <div className="relative z-10 mt-8 sm:mt-10 grid grid-cols-3 gap-2.5 sm:gap-4 max-w-xl w-full">
+          <div className="rounded-2xl border-2 border-foreground bg-card p-2.5 sm:p-3.5 shadow-brutal-sm transition-transform hover:-translate-y-0.5">
+            <p className="text-lg sm:text-2xl font-black">{heroStats[0]?.value}</p>
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Available Tools
+            </p>
+          </div>
+          <div className="rounded-2xl border-2 border-foreground bg-card p-2.5 sm:p-3.5 shadow-brutal-sm transition-transform hover:-translate-y-0.5">
+            <p className="text-lg sm:text-2xl font-black">30s</p>
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Fast Request
+            </p>
+          </div>
+          <div className="rounded-2xl border-2 border-foreground bg-card p-2.5 sm:p-3.5 shadow-brutal-sm transition-transform hover:-translate-y-0.5">
+            <p className="text-lg sm:text-2xl font-black">1 Code</p>
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Live Tracking
+            </p>
+          </div>
+        </div>
 
-            {/* Mobile/Tablet Quick-Pick Tool Ribbon (Sleek, Fast & Clean) */}
-            <div className="mt-6 block lg:hidden w-full max-w-lg mx-auto">
-              <div className="flex items-center justify-between gap-2 mb-2.5 px-1">
-                <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground inline-flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-brand-pink" /> Quick Pick Popular Tools:
-                </span>
-                <span className="text-[10px] font-bold text-muted-foreground">
-                  Tap to add • 100% Free
-                </span>
-              </div>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {heroServices.map((item) => {
-                  const isSelected = selected.includes(item.name);
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => toggleService(item.name)}
-                      className={`inline-flex items-center gap-1.5 rounded-full border-2 border-foreground px-3.5 py-2 text-xs font-black shadow-brutal-sm transition-all ${
-                        item.bg_class || "bg-card"
-                      } ${
-                        isSelected
-                          ? "ring-2 ring-foreground -translate-y-0.5 shadow-brutal"
-                          : "hover:-translate-y-0.5"
-                      }`}
-                    >
-                      <span className="text-sm">{item.emoji}</span>
-                      <span>{item.name}</span>
-                      <span
-                        className={`inline-flex h-4 w-4 items-center justify-center rounded-full border border-foreground text-[9px] ${
-                          isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
-                        }`}
-                      >
-                        {isSelected ? <Check className="h-2.5 w-2.5" strokeWidth={3} /> : <Plus className="h-2.5 w-2.5" />}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+        {/* Live Interactive Tools Showcase - Infinite Sliding Marquee Ribbons */}
+        <div className="relative z-10 mt-9 sm:mt-12 w-full max-w-5xl overflow-hidden py-2">
+          <div className="mb-3 flex items-center justify-between px-2 text-left">
+            <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-muted-foreground inline-flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5 text-brand-pink" /> Tap Any Tool to Pre-Select:
+            </span>
+            <span className="text-[10px] sm:text-xs font-bold text-muted-foreground">
+              Live Verified Pool
+            </span>
           </div>
 
-          {/* Right Hero Graphic - Open Floating 3D Layered Cards Cluster (No Enclosing Box) */}
-          <div className="relative mx-auto hidden w-full max-w-[34rem] min-h-[29rem] lg:flex items-center justify-center">
-            {/* Ambient Background Glows */}
-            <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-brand-pink/20 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-4 right-4 h-56 w-56 rounded-full bg-brand-cyan/20 blur-3xl" />
-
-            {/* 4 Floating 3D Cards */}
-            {heroServices.map((item, idx) => {
-              const isSelected = selected.includes(item.name);
-              const positions = [
-                // Top-Left
-                "top-0 left-0 -rotate-3 animate-hero-float",
-                // Top-Right
-                "top-4 right-0 rotate-3 animate-hero-float-alt",
-                // Bottom-Left
-                "bottom-4 left-2 rotate-2 animate-hero-float-alt",
-                // Bottom-Right
-                "bottom-0 right-2 -rotate-2 animate-hero-float",
-              ];
-              const cardClass = positions[idx % positions.length];
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => toggleService(item.name)}
-                  className={`absolute z-10 w-[15.5rem] cursor-pointer rounded-2xl border-2 border-foreground p-4 text-left shadow-brutal transition-all duration-300 hover:z-30 hover:scale-105 hover:rotate-0 hover:shadow-brutal-lg ${cardClass} ${
-                    item.bg_class || "bg-card"
-                  } ${isSelected ? "ring-4 ring-foreground shadow-brutal-lg" : ""}`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border-2 border-foreground bg-card text-lg font-black shadow-brutal-sm">
-                      {item.emoji}
-                    </span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider bg-background/90 px-2 py-0.5 rounded-full border border-foreground/30 text-foreground">
+          {/* Marquee Row */}
+          <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+            <div className="animate-marquee gap-3 py-1">
+              {[...heroServices, ...heroServices].map((item, idx) => {
+                const isSelected = selected.includes(item.name);
+                return (
+                  <button
+                    key={`m1-${item.id}-${idx}`}
+                    type="button"
+                    onClick={() => toggleService(item.name)}
+                    className={`inline-flex items-center gap-2.5 rounded-2xl border-2 border-foreground px-4 py-2.5 text-left text-xs sm:text-sm font-black shadow-brutal-sm transition-all ${
+                      item.bg_class || "bg-card"
+                    } ${
+                      isSelected
+                        ? "ring-2 ring-foreground -translate-y-1 shadow-brutal"
+                        : "hover:-translate-y-0.5 hover:shadow-brutal"
+                    }`}
+                  >
+                    <span className="text-base sm:text-lg">{item.emoji}</span>
+                    <div>
+                      <p className="leading-tight text-foreground">{item.name}</p>
+                      <p className="text-[9px] sm:text-[10px] font-bold text-foreground/70 uppercase">
                         {item.category}
-                      </span>
-                      <span
-                        className={`inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-foreground text-[11px] font-black shadow-brutal-sm ${
-                          isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
-                        }`}
-                      >
-                        {isSelected ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <Plus className="h-3.5 w-3.5" />}
-                      </span>
+                      </p>
                     </div>
-                  </div>
-                  <h3 className="mt-3 text-base font-black leading-tight text-foreground truncate">
-                    {item.name}
-                  </h3>
-                  <div className="mt-1 flex items-center justify-between text-[11px] font-bold text-foreground/80">
-                    <span>Free Access</span>
-                    <span className="text-[10px] font-black text-foreground">Instant Active</span>
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Center Floating Hub Badge */}
-            <div className="relative z-20 flex flex-col items-center rounded-3xl border-2 border-foreground bg-card/95 px-6 py-4 text-center shadow-brutal-lg backdrop-blur-md transition-transform hover:scale-105">
-              <BrandLogo size="sm" />
-              <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-brand-yellow px-3 py-1 text-[10px] font-black uppercase tracking-wider text-foreground border border-foreground shadow-brutal-sm">
-                <span className="flex h-2 w-2 rounded-full bg-brand-lime animate-ping" />
-                Live AI Triage Active
-              </div>
-              <p className="mt-1.5 text-[11px] font-bold text-muted-foreground">
-                1 Code Instant Tracking
-              </p>
+                    <span
+                      className={`ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] ${
+                        isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
+                      }`}
+                    >
+                      {isSelected ? (
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      ) : (
+                        <Plus className="h-3 w-3" />
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -830,7 +765,11 @@ function Index() {
                           : "bg-card text-foreground group-hover:bg-foreground group-hover:text-background"
                       }`}
                     >
-                      {isSelected ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <Plus className="h-3.5 w-3.5" />}
+                      {isSelected ? (
+                        <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                      ) : (
+                        <Plus className="h-3.5 w-3.5" />
+                      )}
                     </span>
                   </div>
                   <h3 className="mt-3 text-base font-black leading-tight sm:text-lg">{s.name}</h3>
@@ -879,7 +818,8 @@ function Index() {
                 Request Sent Successfully! 🎉
               </h3>
               <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-                Thanks <strong>{submittedRequest.name}</strong>! We've received your request and will reach out to you at{" "}
+                Thanks <strong>{submittedRequest.name}</strong>! We've received your request and
+                will reach out to you at{" "}
                 <span className="font-bold text-foreground">{submittedRequest.email}</span>.
               </p>
 
@@ -947,7 +887,9 @@ function Index() {
                 <div className="flex items-baseline justify-between">
                   <Label className="font-black text-sm">
                     Selected Tools *{" "}
-                    <span className="font-normal text-muted-foreground">({selected.length}/10 selected)</span>
+                    <span className="font-normal text-muted-foreground">
+                      ({selected.length}/10 selected)
+                    </span>
                   </Label>
                   {selected.length > 0 && (
                     <button
@@ -1042,7 +984,9 @@ function Index() {
                     }`}
                     placeholder="Ada Lovelace"
                   />
-                  {errors.name && <p className="text-xs font-bold text-destructive">{errors.name}</p>}
+                  {errors.name && (
+                    <p className="text-xs font-bold text-destructive">{errors.name}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -1064,7 +1008,9 @@ function Index() {
                     }`}
                     placeholder="ada@example.com"
                   />
-                  {errors.email && <p className="text-xs font-bold text-destructive">{errors.email}</p>}
+                  {errors.email && (
+                    <p className="text-xs font-bold text-destructive">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -1283,7 +1229,9 @@ function DynamicField({
               {field.label}
               {field.is_required ? " *" : ""}
             </Label>
-            {field.help_text && <p className="text-xs text-muted-foreground mt-0.5">{field.help_text}</p>}
+            {field.help_text && (
+              <p className="text-xs text-muted-foreground mt-0.5">{field.help_text}</p>
+            )}
           </div>
         </div>
         {error && <p className="text-xs font-bold text-destructive">{error}</p>}
