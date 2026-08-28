@@ -548,17 +548,14 @@ function Index() {
 
             {/* Structured 3-Column Stats - Fully Responsive */}
             <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-2.5 max-w-lg mx-auto lg:mx-0 w-full">
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">{heroStats[0]?.value}</p>
                 <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Active Tools</p>
               </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">30s</p>
                 <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Fast Request</p>
               </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">1 Code</p>
                 <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Live Tracking</p>
@@ -607,15 +604,10 @@ function Index() {
             </div>
           </div>
 
-          {/* Right Hero Graphic - Bento Stack Showcase (Visible on all screen sizes) */}
-          <div className="relative mx-auto w-full max-w-[32rem] block mt-2 sm:mt-4 lg:mt-0">
-            <div className="rounded-[2rem] sm:rounded-[2.5rem] border-2 border-foreground bg-card/90 p-3.5 sm:p-5 shadow-brutal-lg backdrop-blur-md">
           {/* Right Hero Graphic - Bento Stack Showcase (Exclusively for Desktop) */}
           <div className="relative mx-auto hidden w-full max-w-[32rem] lg:block">
             <div className="rounded-[2.5rem] border-2 border-foreground bg-card/90 p-5 shadow-brutal-lg backdrop-blur-md">
               {/* Header Showcase Bar */}
-              <div className="flex items-center justify-between pb-3 sm:pb-4 border-b-2 border-foreground/10">
-                <div className="flex items-center gap-2 sm:gap-2.5">
               <div className="flex items-center justify-between pb-4 border-b-2 border-foreground/10">
                 <div className="flex items-center gap-2.5">
                   <BrandLogo size="sm" />
@@ -624,14 +616,12 @@ function Index() {
                     <p className="text-[10px] font-bold text-muted-foreground mt-0.5">Pick & Request instantly</p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-black shadow-brutal-sm">
                 <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-[11px] font-black shadow-brutal-sm">
                   <Sparkles className="h-3 w-3" /> 100% Free
                 </span>
               </div>
 
               {/* 2x2 Bento Interactive Cards Grid - Fully Database Driven */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-3 sm:pt-4">
               <div className="grid grid-cols-2 gap-3 pt-4">
                 {heroServices.map((item) => {
                   const isSelected = selected.includes(item.name);
@@ -639,7 +629,6 @@ function Index() {
                     <div
                       key={item.id}
                       onClick={() => toggleService(item.name)}
-                      className={`cursor-pointer rounded-xl sm:rounded-2xl border-2 border-foreground p-2.5 sm:p-3.5 text-left transition-all ${item.bg_class || "bg-card"} ${
                       className={`cursor-pointer rounded-2xl border-2 border-foreground p-3.5 text-left transition-all ${item.bg_class || "bg-card"} ${
                         isSelected
                           ? "shadow-brutal -translate-y-1 ring-2 ring-foreground"
@@ -647,25 +636,20 @@ function Index() {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-lg sm:rounded-xl border-2 border-foreground bg-card text-xs sm:text-base font-black shadow-brutal-sm">
                         <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground bg-card text-base font-black shadow-brutal-sm">
                           {item.emoji}
                         </span>
                         <span
-                          className={`inline-flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full border border-foreground text-[8px] sm:text-[10px] font-black ${
                           className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black ${
                             isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
                           }`}
                         >
-                          {isSelected ? <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3" strokeWidth={3} /> : <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />}
                           {isSelected ? <Check className="h-3 w-3" strokeWidth={3} /> : <Plus className="h-3 w-3" />}
                         </span>
                       </div>
-                      <p className="mt-1.5 sm:mt-2.5 font-black text-[11px] sm:text-sm leading-tight text-foreground truncate">
                       <p className="mt-2.5 font-black text-sm leading-tight text-foreground truncate">
                         {item.name}
                       </p>
-                      <p className="text-[9px] sm:text-[10px] font-bold text-foreground/80 truncate mt-0.5">
                       <p className="text-[10px] font-bold text-foreground/80 truncate mt-0.5">
                         {item.category} • Free Access
                       </p>
@@ -675,10 +659,6 @@ function Index() {
               </div>
 
               {/* Bottom Live Review Ticker */}
-              <div className="mt-3 sm:mt-4 rounded-xl sm:rounded-2xl border-2 border-foreground bg-background p-2.5 sm:p-3 flex items-center justify-between shadow-brutal-sm">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="flex h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-brand-lime animate-ping" />
-                  <p className="text-[10px] sm:text-xs font-bold text-foreground">
               <div className="mt-4 rounded-2xl border-2 border-foreground bg-background p-3 flex items-center justify-between shadow-brutal-sm">
                 <div className="flex items-center gap-2">
                   <span className="flex h-2.5 w-2.5 rounded-full bg-brand-lime animate-ping" />
@@ -686,7 +666,6 @@ function Index() {
                     Instant AI Triage Active
                   </p>
                 </div>
-                <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-1.5 sm:px-2 py-0.5 rounded border border-foreground/20">
                 <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded border border-foreground/20">
                   1 Code Track
                 </span>

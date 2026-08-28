@@ -116,17 +116,21 @@ export function BrandLogo({
         <span
           className={cn(
             "font-display font-bold tracking-[-0.08em] text-foreground",
+            "font-display font-black tracking-tight text-foreground select-none",
             styles.word,
             wordmarkClassName,
           )}
         >
           <span className="text-gradient-hero inline-block">Soc</span>
           <span className="ml-0.5 text-foreground">Zen</span>
+          <span className="text-brand-pink inline-block drop-shadow-[0_1px_1px_rgba(0,0,0,0.08)]">Soc</span>
+          <span className="ml-0.5 text-foreground drop-shadow-[0_1px_1px_rgba(0,0,0,0.05)]">Zen</span>
         </span>
         {showTagline ? (
           <span
             className={cn(
               "mt-1 font-semibold uppercase tracking-[0.28em] text-muted-foreground",
+              "mt-1 font-bold uppercase tracking-[0.28em] text-muted-foreground",
               styles.caption,
             )}
           >
