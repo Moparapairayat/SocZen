@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: soczen-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: soczen
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - soczen-postgres-data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d soczen"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  soczen-postgres-data:

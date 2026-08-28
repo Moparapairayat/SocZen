@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="soczen-bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6ED7FF" />
+      <stop offset="0.52" stop-color="#8F63FF" />
+      <stop offset="1" stop-color="#FF4EA3" />
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="18" fill="url(#soczen-bg)" stroke="#1F1243" stroke-width="3" />
+  <rect x="9.5" y="9.5" width="45" height="45" rx="15" fill="white" fill-opacity="0.12" stroke="white" stroke-opacity="0.45" />
+  <circle cx="22.5" cy="22.5" r="8.5" fill="#FFD84D" stroke="#1F1243" stroke-width="3" />
+  <circle cx="43" cy="20.5" r="4.5" fill="#FFF7ED" stroke="#1F1243" stroke-width="3" />
+  <rect x="14.5" y="37.5" width="23" height="8" rx="4" transform="rotate(24 14.5 37.5)" fill="#FFF7ED" stroke="#1F1243" stroke-width="3" />
+  <rect x="29" y="34.5" width="18" height="8" rx="4" transform="rotate(-22 29 34.5)" fill="#B7FF4A" stroke="#1F1243" stroke-width="3" />
+</svg>
