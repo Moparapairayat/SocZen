@@ -138,8 +138,8 @@ function AdminPage() {
                     Powered by
                   </p>
                   <p className="font-display text-base font-bold tracking-[-0.08em] sm:text-lg">
-                    <span className="text-foreground/80">SocZen</span>{" "}
-                    <span className="text-gradient-hero">Access Desk</span>
+                    <span className="text-foreground/80">Mopara Pair</span>{" "}
+                    <span className="text-gradient-hero">Ayat</span>
                   </p>
                 </div>
               </div>

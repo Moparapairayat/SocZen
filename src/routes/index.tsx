@@ -516,16 +516,16 @@ function Index() {
               <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-pink" />
               100% Free Access
               <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
-              Zero Gatekeeping
+              No Credit Card Needed
             </div>
 
             <div className="mt-4 sm:mt-6">
               <h1 className="text-3xl font-black leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.35rem]">
                 Premium tools,
-                <span className="mt-1.5 sm:mt-2 block text-gradient-hero">without the subscription.</span>
+                <span className="mt-1.5 sm:mt-2 block text-gradient-hero">without the monthly bills.</span>
               </h1>
               <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-xs sm:text-base leading-5 sm:leading-7 text-muted-foreground lg:mx-0 font-medium">
-                Pick the premium tools you need (ChatGPT, Canva, Netflix, Spotify & more), send one fast request, and track everything live with a single code.
+                Pick the premium tools you need (ChatGPT, Canva, Netflix, Spotify & more). Tell us what you're creating, and track your request live with a single code.
               </p>
             </div>
 
@@ -535,7 +535,7 @@ function Index() {
                 onClick={scrollToForm}
                 className="w-full sm:w-auto rounded-full border-2 border-foreground bg-gradient-cta px-6 sm:px-9 py-4 sm:py-6 text-sm sm:text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none"
               >
-                Request Access Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                Get Free Access <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <Button
                 type="button"
@@ -550,11 +550,11 @@ function Index() {
             <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-2.5 max-w-lg mx-auto lg:mx-0 w-full">
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">{heroStats[0]?.value}</p>
-                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Active Tools</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Available Tools</p>
               </div>
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">30s</p>
-                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Fast Request</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Quick Request</p>
               </div>
               <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2.5 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
                 <p className="text-base sm:text-xl font-black">1 Code</p>
@@ -566,7 +566,7 @@ function Index() {
             <div className="mt-6 block lg:hidden w-full max-w-lg mx-auto">
               <div className="flex items-center justify-between gap-2 mb-2.5 px-1">
                 <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground inline-flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-brand-pink" /> Quick Pick Top Tools:
+                  <Sparkles className="h-3.5 w-3.5 text-brand-pink" /> Quick Pick Popular Tools:
                 </span>
                 <span className="text-[10px] font-bold text-muted-foreground">
                   Tap to add • 100% Free
@@ -604,72 +604,73 @@ function Index() {
             </div>
           </div>
 
-          {/* Right Hero Graphic - Bento Stack Showcase (Exclusively for Desktop) */}
-          <div className="relative mx-auto hidden w-full max-w-[32rem] lg:block">
-            <div className="rounded-[2.5rem] border-2 border-foreground bg-card/90 p-5 shadow-brutal-lg backdrop-blur-md">
-              {/* Header Showcase Bar */}
-              <div className="flex items-center justify-between pb-4 border-b-2 border-foreground/10">
-                <div className="flex items-center gap-2.5">
-                  <BrandLogo size="sm" />
-                  <div>
-                    <p className="text-xs font-black leading-none">Access Stack</p>
-                    <p className="text-[10px] font-bold text-muted-foreground mt-0.5">Pick & Request instantly</p>
+          {/* Right Hero Graphic - Open Floating 3D Layered Cards Cluster (No Enclosing Box) */}
+          <div className="relative mx-auto hidden w-full max-w-[34rem] min-h-[29rem] lg:flex items-center justify-center">
+            {/* Ambient Background Glows */}
+            <div className="pointer-events-none absolute h-64 w-64 rounded-full bg-brand-pink/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-4 right-4 h-56 w-56 rounded-full bg-brand-cyan/20 blur-3xl" />
+
+            {/* 4 Floating 3D Cards */}
+            {heroServices.map((item, idx) => {
+              const isSelected = selected.includes(item.name);
+              const positions = [
+                // Top-Left
+                "top-0 left-0 -rotate-3 animate-hero-float",
+                // Top-Right
+                "top-4 right-0 rotate-3 animate-hero-float-alt",
+                // Bottom-Left
+                "bottom-4 left-2 rotate-2 animate-hero-float-alt",
+                // Bottom-Right
+                "bottom-0 right-2 -rotate-2 animate-hero-float",
+              ];
+              const cardClass = positions[idx % positions.length];
+
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => toggleService(item.name)}
+                  className={`absolute z-10 w-[15.5rem] cursor-pointer rounded-2xl border-2 border-foreground p-4 text-left shadow-brutal transition-all duration-300 hover:z-30 hover:scale-105 hover:rotate-0 hover:shadow-brutal-lg ${cardClass} ${
+                    item.bg_class || "bg-card"
+                  } ${isSelected ? "ring-4 ring-foreground shadow-brutal-lg" : ""}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border-2 border-foreground bg-card text-lg font-black shadow-brutal-sm">
+                      {item.emoji}
+                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-black uppercase tracking-wider bg-background/90 px-2 py-0.5 rounded-full border border-foreground/30 text-foreground">
+                        {item.category}
+                      </span>
+                      <span
+                        className={`inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-foreground text-[11px] font-black shadow-brutal-sm ${
+                          isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
+                        }`}
+                      >
+                        {isSelected ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <Plus className="h-3.5 w-3.5" />}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="mt-3 text-base font-black leading-tight text-foreground truncate">
+                    {item.name}
+                  </h3>
+                  <div className="mt-1 flex items-center justify-between text-[11px] font-bold text-foreground/80">
+                    <span>Free Access</span>
+                    <span className="text-[10px] font-black text-foreground">Instant Active</span>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-[11px] font-black shadow-brutal-sm">
-                  <Sparkles className="h-3 w-3" /> 100% Free
-                </span>
-              </div>
+              );
+            })}
 
-              {/* 2x2 Bento Interactive Cards Grid - Fully Database Driven */}
-              <div className="grid grid-cols-2 gap-3 pt-4">
-                {heroServices.map((item) => {
-                  const isSelected = selected.includes(item.name);
-                  return (
-                    <div
-                      key={item.id}
-                      onClick={() => toggleService(item.name)}
-                      className={`cursor-pointer rounded-2xl border-2 border-foreground p-3.5 text-left transition-all ${item.bg_class || "bg-card"} ${
-                        isSelected
-                          ? "shadow-brutal -translate-y-1 ring-2 ring-foreground"
-                          : "shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground bg-card text-base font-black shadow-brutal-sm">
-                          {item.emoji}
-                        </span>
-                        <span
-                          className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black ${
-                            isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
-                          }`}
-                        >
-                          {isSelected ? <Check className="h-3 w-3" strokeWidth={3} /> : <Plus className="h-3 w-3" />}
-                        </span>
-                      </div>
-                      <p className="mt-2.5 font-black text-sm leading-tight text-foreground truncate">
-                        {item.name}
-                      </p>
-                      <p className="text-[10px] font-bold text-foreground/80 truncate mt-0.5">
-                        {item.category} • Free Access
-                      </p>
-                    </div>
-                  );
-                })}
+            {/* Center Floating Hub Badge */}
+            <div className="relative z-20 flex flex-col items-center rounded-3xl border-2 border-foreground bg-card/95 px-6 py-4 text-center shadow-brutal-lg backdrop-blur-md transition-transform hover:scale-105">
+              <BrandLogo size="sm" />
+              <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-brand-yellow px-3 py-1 text-[10px] font-black uppercase tracking-wider text-foreground border border-foreground shadow-brutal-sm">
+                <span className="flex h-2 w-2 rounded-full bg-brand-lime animate-ping" />
+                Live AI Triage Active
               </div>
-
-              {/* Bottom Live Review Ticker */}
-              <div className="mt-4 rounded-2xl border-2 border-foreground bg-background p-3 flex items-center justify-between shadow-brutal-sm">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-brand-lime animate-ping" />
-                  <p className="text-xs font-bold text-foreground">
-                    Instant AI Triage Active
-                  </p>
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded border border-foreground/20">
-                  1 Code Track
-                </span>
-              </div>
+              <p className="mt-1.5 text-[11px] font-bold text-muted-foreground">
+                1 Code Instant Tracking
+              </p>
             </div>
           </div>
         </div>
@@ -688,22 +689,22 @@ function Index() {
           {[
             {
               step: "01",
-              title: "Pick Tools",
-              desc: "Choose from AI, Design, Streaming, and Productivity tools from our catalog.",
+              title: "Pick Your Tools",
+              desc: "Explore our collection of AI, design, music, and streaming subscriptions. Pick what you need.",
               color: "bg-brand-lime",
               icon: Zap,
             },
             {
               step: "02",
-              title: "Quick Request",
-              desc: "Submit your request in 30 seconds with your email and basic use-case.",
+              title: "Send a Quick Note",
+              desc: "Tell us where to send access details and a short note on what you're building.",
               color: "bg-brand-cyan",
               icon: Sparkles,
             },
             {
               step: "03",
-              title: "Get Access",
-              desc: "Track status live. Our desk reviews and sets up your credentials.",
+              title: "Get Your Access",
+              desc: "Track status live in real-time. Once approved, credentials arrive straight to your inbox.",
               color: "bg-brand-pink",
               icon: ShieldCheck,
             },
@@ -729,13 +730,13 @@ function Index() {
       <section id="catalog" className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
         <div className="text-center">
           <span className="inline-block rounded-full border-2 border-foreground bg-brand-lime px-3.5 py-1 text-xs font-black shadow-brutal-sm uppercase">
-            Full Catalog
+            Subscriptions Catalog
           </span>
           <h2 className="mt-3 text-3xl font-black sm:text-4xl md:text-5xl">
-            Pick your <span className="text-gradient-hero">subscriptions</span>
+            Choose what you <span className="text-gradient-hero">need</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base font-medium">
-            Click any card to select or deselect. Pick up to 10 subscriptions for your stack.
+            Tap any tool to add it to your request bag. You can choose up to 10 tools at once.
           </p>
         </div>
 
@@ -763,7 +764,7 @@ function Index() {
             <Input
               value={catalogSearch}
               onChange={(e) => setCatalogSearch(e.target.value)}
-              placeholder="Search tools..."
+              placeholder="Search tools or categories..."
               className="h-11 rounded-full border-2 border-foreground bg-card pl-10 text-sm shadow-brutal-sm focus-visible:ring-0"
             />
             {catalogSearch && (
@@ -848,7 +849,7 @@ function Index() {
             className="rounded-full border-2 border-foreground bg-foreground text-background text-base font-black px-8 py-6 shadow-brutal hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all"
           >
             {selected.length > 0
-              ? `Proceed with ${selected.length} Tool${selected.length === 1 ? "" : "s"} →`
+              ? `Continue with ${selected.length} Tool${selected.length === 1 ? "" : "s"} →`
               : "Request Access Now →"}
           </Button>
         </div>
@@ -859,13 +860,13 @@ function Index() {
         <div className="rounded-3xl border-2 border-foreground bg-card p-6 shadow-brutal-lg sm:p-8 md:p-12">
           <div className="text-center">
             <span className="inline-block rounded-full border-2 border-foreground bg-brand-pink text-white px-3.5 py-1 text-xs font-black shadow-brutal-sm uppercase">
-              Application Form
+              Quick Application
             </span>
             <h2 className="mt-3 text-3xl font-black sm:text-4xl md:text-5xl">
-              Complete your <span className="text-gradient-hero">request</span>
+              Claim your <span className="text-gradient-hero">access</span>
             </h2>
             <p className="mt-2 text-sm text-muted-foreground sm:text-base font-medium">
-              Review your stack and tell us where to send your access details.
+              Review your stack and let us know where to deliver your credentials.
             </p>
           </div>
 
@@ -875,17 +876,17 @@ function Index() {
                 <Check className="h-8 w-8" strokeWidth={3} />
               </div>
               <h3 className="mt-5 text-2xl font-black sm:text-3xl">
-                Request Submitted Successfully!
+                Request Sent Successfully! 🎉
               </h3>
               <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-                Thanks <strong>{submittedRequest.name}</strong>. We received your request and will contact you at{" "}
+                Thanks <strong>{submittedRequest.name}</strong>! We've received your request and will reach out to you at{" "}
                 <span className="font-bold text-foreground">{submittedRequest.email}</span>.
               </p>
 
               {/* Reference Code Box */}
               <div className="mt-6 rounded-2xl border-2 border-foreground bg-card p-5 shadow-brutal">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">
-                  Your Unique Tracking Reference Code
+                  Your Live Tracking Reference Code
                 </p>
                 <div className="mt-3 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <div className="inline-flex rounded-full border-2 border-foreground bg-brand-yellow px-5 py-2.5 font-mono text-base sm:text-lg font-black shadow-brutal-sm">
@@ -900,14 +901,14 @@ function Index() {
                   </Button>
                 </div>
                 <p className="mt-3 text-xs text-muted-foreground">
-                  Save this code to check your live review and handoff progress below.
+                  Save this code to check your live review and dispatch progress below.
                 </p>
               </div>
 
               {submittedRequest.selectedServices.length > 0 && (
                 <div className="mt-6">
                   <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">
-                    Requested Stack
+                    Your Requested Stack
                   </p>
                   <div className="mt-2.5 flex flex-wrap justify-center gap-2">
                     {submittedRequest.selectedServices.map((service) => (
@@ -935,7 +936,7 @@ function Index() {
                   onClick={() => setSubmittedRequest(null)}
                   className="rounded-full border-2 border-foreground bg-card text-foreground font-bold px-6 py-3 shadow-brutal-sm hover:bg-muted"
                 >
-                  Submit Another
+                  Submit Another Request
                 </Button>
               </div>
             </div>
@@ -945,7 +946,7 @@ function Index() {
               <div className="space-y-3">
                 <div className="flex items-baseline justify-between">
                   <Label className="font-black text-sm">
-                    Selected Subscriptions *{" "}
+                    Selected Tools *{" "}
                     <span className="font-normal text-muted-foreground">({selected.length}/10 selected)</span>
                   </Label>
                   {selected.length > 0 && (
@@ -984,7 +985,7 @@ function Index() {
                     }}
                     className="cursor-pointer rounded-2xl border-2 border-dashed border-foreground bg-background p-4 text-center text-xs font-bold text-muted-foreground hover:bg-muted transition-colors"
                   >
-                    No subscriptions selected yet. Tap tools above in the catalog or choose below!
+                    No tools selected yet. Tap any tool above in the catalog or choose below!
                   </div>
                 )}
 
@@ -1154,12 +1155,13 @@ function Index() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border-2 border-foreground bg-card px-4 py-2.5 shadow-brutal-sm">
+              <div className="rounded-2xl border-2 border-foreground bg-card px-4 py-2.5 shadow-brutal-sm text-center sm:text-right">
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                   Powered by
                 </p>
-                <p className="font-display text-lg font-black text-foreground">
-                  SocZen <span className="text-gradient-hero">Access Desk</span>
+                <p className="font-display text-base sm:text-lg font-black text-foreground">
+                  <span className="text-foreground">Mopara Pair </span>
+                  <span className="text-gradient-hero">Ayat</span>
                 </p>
               </div>
             </div>
