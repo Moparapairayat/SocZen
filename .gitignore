@@ -46,3 +46,4 @@ temp
 *.njsproj
 *.sln
 *.sw?
+.neon
