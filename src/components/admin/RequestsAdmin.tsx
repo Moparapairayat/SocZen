@@ -200,6 +200,7 @@ type Props = { password: string };
 
 export function RequestsAdmin({ password }: Props) {
   const [loading, setLoading] = useState(false);
+  const [realtime, setRealtime] = useState(true);
   const [requests, setRequests] = useState<AdminRequest[]>([]);
   const [filter, setFilter] = useState<FilterStatus>("all");
   const [query, setQuery] = useState("");
@@ -249,6 +250,31 @@ export function RequestsAdmin({ password }: Props) {
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Real-Time Background Live Sync (Every 4s)
+  useEffect(() => {
+    if (!realtime) return;
+
+    const timer = setInterval(async () => {
+      if (typeof document !== "undefined" && document.hidden) return;
+      try {
+        const { requests: latest } = await listSubscriptionRequests({ data: { password } });
+        setRequests((prev) => {
+          if (latest.length > prev.length) {
+            const count = latest.length - prev.length;
+            toast.info(`⚡ Live Signal: ${count} new subscription request received!`, {
+              icon: "🔔",
+            });
+          }
+          return latest;
+        });
+      } catch {
+        // silent catch for background sync
+      }
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [password, realtime]);
 
   async function changeStatus(id: string, status: Status) {
     const prev = requests;
@@ -502,6 +528,22 @@ export function RequestsAdmin({ password }: Props) {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setRealtime((prev) => !prev)}
+            className={`rounded-full border-2 border-foreground shadow-brutal-sm text-xs font-black transition-all ${
+              realtime
+                ? "bg-brand-lime text-foreground"
+                : "bg-card text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <span
+              className={`flex h-2 w-2 rounded-full mr-1.5 ${
+                realtime ? "bg-foreground animate-ping" : "bg-muted-foreground"
+              }`}
+            />
+            {realtime ? "Live Sync (4s)" : "Paused"}
+          </Button>
           <Button
             variant="outline"
             onClick={() => load()}

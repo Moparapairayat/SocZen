@@ -200,8 +200,14 @@ export function RequestTracker({
             <div className="rounded-3xl border-2 border-foreground bg-background p-5 shadow-brutal sm:p-6">
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <div className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">
-                    CURRENT PROGRESS
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+                      CURRENT PROGRESS
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-lime bg-brand-lime/20 px-2 py-0.5 text-[10px] font-black text-foreground">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-brand-lime animate-ping" />
+                      Live Sync Active
+                    </span>
                   </div>
                   <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
                     <span

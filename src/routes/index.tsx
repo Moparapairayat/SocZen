@@ -362,6 +362,37 @@ function Index() {
     }
   };
 
+  // Real-Time Request Tracker Live Sync (Every 4 seconds)
+  useEffect(() => {
+    if (!trackedRequest || !trackingReference.trim() || !trackingEmail.trim()) return;
+
+    const ref = trackingReference.trim();
+    const em = trackingEmail.trim();
+
+    const timer = setInterval(async () => {
+      if (typeof document !== "undefined" && document.hidden) return;
+      try {
+        const response = await trackSubscriptionRequest({
+          data: { reference: ref, email: em },
+        });
+        setTrackedRequest((prev) => {
+          if (!prev) return response.request;
+          if (prev.status !== response.request.status) {
+            toast.info(
+              `⚡ Status Update: Your request is now ${response.request.status.toUpperCase()}!`,
+              { icon: "🎉" },
+            );
+          }
+          return response.request;
+        });
+      } catch {
+        // Silent catch for background poll
+      }
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [trackedRequest, trackingReference, trackingEmail]);
+
   return (
     <main className="min-h-screen overflow-x-hidden pb-12">
       <Toaster richColors position="top-center" />

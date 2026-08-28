@@ -112,6 +112,25 @@ export function GrantsAdmin({ password }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Background Live Sync for Grants (Every 5s)
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      if (typeof document !== "undefined" && document.hidden) return;
+      try {
+        const [{ grants: latestGrants }, { services: latestServices }] = await Promise.all([
+          listGrants({ data: { password } }),
+          listServices({ data: { password } }),
+        ]);
+        setGrants(latestGrants);
+        setServices(latestServices);
+      } catch {
+        // silent catch
+      }
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [password]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return grants.filter((g) => {
