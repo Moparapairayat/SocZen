@@ -45,7 +45,7 @@ type EmailLayoutInput = {
 
 const BRAND_SIGNATURE_LABEL = "Powered by";
 const BRAND_SIGNATURE_NAME = "SocZen Access Desk";
-const BRAND_DOMAIN_FALLBACK = "soczen.app";
+const BRAND_DOMAIN_FALLBACK = "soczen.moparapairayat.dev";
 
 function getResendConfig(): ResendConfig | null {
   const apiKey = process.env.RESEND_API_KEY?.trim();
@@ -103,6 +103,14 @@ function extractEmailDomain(value: string | null) {
   if (atIndex === -1 || atIndex === email.length - 1) return null;
 
   return email.slice(atIndex + 1);
+}
+
+function getWebsiteDomain(): string {
+  const envUrl = process.env.SITE_URL?.trim();
+  if (envUrl) {
+    return envUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  }
+  return BRAND_DOMAIN_FALLBACK;
 }
 
 function renderServicePillsHtml(selectedServices: string[]) {
@@ -337,7 +345,7 @@ export async function sendSubmissionEmails(data: RequestEmailData) {
 
   const serviceCount = data.selectedServices.length;
   const subscriptionLabel = serviceCount === 1 ? "subscription" : "subscriptions";
-  const brandDomain = extractEmailDomain(config.replyTo ?? config.from) ?? BRAND_DOMAIN_FALLBACK;
+  const websiteDomain = getWebsiteDomain();
 
   const company = formatOptionalValue(data.company);
   const useCase = formatOptionalValue(data.useCase);
@@ -352,9 +360,11 @@ export async function sendSubmissionEmails(data: RequestEmailData) {
     title: "Your access request is officially in the queue",
     introHtml: `
       <p style="margin:0;">Hi ${requesterName}, your SocZen request landed cleanly.</p>
-      <p style="margin:12px 0 0;">We are reviewing availability, fit, and handoff order now. Keep an eye on <strong>${escapeHtml(
-        brandDomain,
-      )}</strong> for the next step.</p>
+      <p style="margin:12px 0 0;">We are reviewing availability, fit, and handoff order now. Keep an eye on <a href="https://${escapeHtml(
+        websiteDomain,
+      )}" style="color:#2563eb;font-weight:700;text-decoration:underline;" target="_blank">${escapeHtml(
+        websiteDomain,
+      )}</a> for the next step.</p>
     `,
     badgeLabel: "Requested",
     badgeValue: `${serviceCount} ${subscriptionLabel}`,
@@ -435,7 +445,7 @@ export async function sendSubmissionEmails(data: RequestEmailData) {
     `Reference code: ${data.referenceCode}`,
     `Tracking email: ${data.email}`,
     "",
-    `Watch for a reply from ${brandDomain}.`,
+    `Website & live tracker: https://${websiteDomain}`,
     "",
     "Thanks,",
     "SocZen",
@@ -569,7 +579,7 @@ export async function sendRequestStatusEmail(data: RequestStatusEmailData) {
   }
 
   const requesterName = escapeHtml(data.name);
-  const brandDomain = extractEmailDomain(config.replyTo ?? config.from) ?? BRAND_DOMAIN_FALLBACK;
+  const websiteDomain = getWebsiteDomain();
   const customNote = data.note?.trim() || null;
 
   const meta = {
@@ -581,9 +591,11 @@ export async function sendRequestStatusEmail(data: RequestStatusEmailData) {
       badgeValue: "Approved",
       introHtml: `
         <p style="margin:0;">Hi ${requesterName}, good news. Your SocZen request is now approved.</p>
-        <p style="margin:12px 0 0;">The handoff can move forward from here, so keep an eye on <strong>${escapeHtml(
-          brandDomain,
-        )}</strong> for access details and any final instructions.</p>
+        <p style="margin:12px 0 0;">The handoff can move forward from here. Check <a href="https://${escapeHtml(
+          websiteDomain,
+        )}" style="color:#2563eb;font-weight:700;text-decoration:underline;" target="_blank">${escapeHtml(
+          websiteDomain,
+        )}</a> for access details and timeline tracking.</p>
       `,
       statusLead: "Your request cleared review and is ready for the next step.",
       nextTitle: "What happens next",
@@ -720,12 +732,39 @@ export async function sendRequestStatusEmail(data: RequestStatusEmailData) {
     BRAND_SIGNATURE_NAME,
   ].join("\n");
 
-  await sendResendEmail({
-    to: data.email,
-    subject: meta.subject,
-    html,
-    text,
-  });
+  const emailTasks: Promise<unknown>[] = [
+    sendResendEmail({
+      to: data.email,
+      subject: meta.subject,
+      html,
+      text,
+    }),
+  ];
 
-  return { sent: true as const, skipped: false as const };
+  if (config.adminEmail) {
+    emailTasks.push(
+      sendResendEmail({
+        to: config.adminEmail,
+        subject: `[Admin Log] Request ${data.status.toUpperCase()} | ${data.name} (${data.referenceCode})`,
+        html,
+        text,
+        replyTo: data.email,
+      }),
+    );
+  }
+
+  const [requesterRes, adminRes] = await Promise.allSettled(emailTasks);
+
+  if (requesterRes.status === "rejected") {
+    console.error("Failed to send status update email:", requesterRes.reason);
+  }
+
+  if (adminRes?.status === "rejected") {
+    console.error("Failed to send admin status log email:", adminRes.reason);
+  }
+
+  return {
+    sent: requesterRes.status === "fulfilled",
+    skipped: false as const,
+  };
 }

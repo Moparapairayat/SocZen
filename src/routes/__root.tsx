@@ -44,9 +44,11 @@ export const Route = createRootRoute({
           "Request access to premium subscriptions like ChatGPT, Canva, Netflix, and more in seconds.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:url", content: "https://soczen.moparapairayat.dev/" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "canonical", href: "https://soczen.moparapairayat.dev/" },
       { rel: "icon", type: "image/svg+xml", href: brandIcon },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
