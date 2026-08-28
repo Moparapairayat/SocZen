@@ -47,3 +47,5 @@ temp
 *.sln
 *.sw?
 .neon
+
+.vercel

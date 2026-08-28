@@ -225,4 +225,3 @@ export type NewGrantedSubscription = typeof grantedSubscriptions.$inferInsert;
 export type RequestStatusHistory = typeof requestStatusHistory.$inferSelect;
 export type NewRequestStatusHistory = typeof requestStatusHistory.$inferInsert;
 export type AdminCredential = typeof adminCredentials.$inferSelect;
-
