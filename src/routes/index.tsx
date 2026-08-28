@@ -26,7 +26,6 @@ import {
   Zap,
   ShieldCheck,
   Plus,
-  Trash2,
 } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { RequestTracker } from "@/components/RequestTracker";
@@ -75,48 +74,49 @@ const HERO_FALLBACK_SERVICES: HeroService[] = [
     bg_class: "bg-brand-cyan",
   },
   {
-    id: "netflix",
-    name: "Netflix",
-    emoji: "🎬",
-    category: "Streaming",
-    bg_class: "bg-brand-pink",
-  },
-  {
     id: "spotify",
     name: "Spotify Premium",
     emoji: "🎵",
     category: "Music",
-    bg_class: "bg-brand-lime",
+    bg_class: "bg-brand-pink",
   },
   {
-    id: "notion-ai",
-    name: "Notion AI",
-    emoji: "📝",
-    category: "Productivity",
+    id: "netflix",
+    name: "Netflix 4K",
+    emoji: "🎬",
+    category: "Streaming",
     bg_class: "bg-brand-yellow",
   },
 ];
 
 const HERO_ORBIT_CARDS = [
   {
-    position: "left-1/2 top-7 -translate-x-1/2",
-    tilt: "rotate-[2deg]",
+    // Top-Left
+    position: "top-3 left-3",
+    tilt: "-rotate-3 hover:rotate-0",
     animation: "animate-hero-float",
+    tag: "AI Suite",
   },
   {
-    position: "right-2 top-[38%]",
-    tilt: "rotate-[-4deg]",
+    // Top-Right
+    position: "top-3 right-3",
+    tilt: "rotate-3 hover:rotate-0",
     animation: "animate-hero-float-alt",
+    tag: "Design",
   },
   {
-    position: "left-1/2 bottom-4 -translate-x-1/2",
-    tilt: "rotate-[1deg]",
+    // Bottom-Left
+    position: "bottom-3 left-3",
+    tilt: "rotate-2 hover:rotate-0",
+    animation: "animate-hero-float-alt",
+    tag: "Music",
+  },
+  {
+    // Bottom-Right
+    position: "bottom-3 right-3",
+    tilt: "-rotate-2 hover:rotate-0",
     animation: "animate-hero-float",
-  },
-  {
-    position: "left-2 top-[38%]",
-    tilt: "rotate-[3deg]",
-    animation: "animate-hero-float-alt",
+    tag: "Streaming",
   },
 ] as const;
 
@@ -142,8 +142,7 @@ function Index() {
   const [values, setValues] = useState<Record<string, FieldValue>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const heroServices = (services.length > 0 ? services : HERO_FALLBACK_SERVICES).slice(0, 5);
-  const heroOrbitServices = heroServices.slice(0, HERO_ORBIT_CARDS.length);
+  const heroServices = (services.length > 0 ? services : HERO_FALLBACK_SERVICES).slice(0, 4);
 
   const categories = useMemo(() => {
     const set = new Set<string>(["All"]);
@@ -561,85 +560,88 @@ function Index() {
             </div>
           </div>
 
-          {/* Right Orbit Visual */}
-          <div className="relative mx-auto hidden w-full max-w-[27rem] lg:block lg:min-h-[28rem]">
-            <div className="animate-hero-float hidden rounded-full border-2 border-foreground bg-white px-3.5 py-1.5 text-xs font-black text-foreground shadow-brutal-sm backdrop-blur-md md:inline-flex md:absolute md:right-1 md:top-[4.5rem] z-30">
-              <Sparkles className="mr-1.5 h-3.5 w-3.5 text-brand-pink" /> Instant Grant
-            </div>
-
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -left-8 top-6 h-36 w-36 rounded-full blur-3xl"
-              style={{ background: "color-mix(in oklab, var(--brand-pink) 20%, transparent)" }}
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -right-10 bottom-6 h-40 w-40 rounded-full blur-3xl"
-              style={{ background: "color-mix(in oklab, var(--brand-cyan) 18%, transparent)" }}
-            />
-
-            <div className="relative z-10 flex items-start justify-between gap-4">
+          {/* Right Orbit Visual - Redesigned Spacious Staggered Hub */}
+          <div className="relative mx-auto hidden w-full max-w-[31rem] lg:block">
+            {/* Header info bar */}
+            <div className="relative z-10 flex items-center justify-between gap-4 mb-3">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-muted-foreground">
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground">
                   SocZen Lineup
                 </p>
-                <h2 className="mt-1 text-2xl font-black leading-none sm:text-3xl">Access Stack</h2>
+                <h2 className="text-2xl font-black leading-none sm:text-3xl">Access Stack</h2>
               </div>
-              <span className="rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-xs font-black shadow-brutal-sm">
-                {heroStats[0]?.value} Active
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-xs font-black shadow-brutal-sm">
+                  {heroStats[0]?.value} Active
+                </span>
+                <span className="animate-hero-float rounded-full border-2 border-foreground bg-card px-3 py-1 text-xs font-black text-foreground shadow-brutal-sm">
+                  <Sparkles className="inline-block mr-1 h-3.5 w-3.5 text-brand-pink" /> Instant
+                </span>
+              </div>
             </div>
 
-            <div className="relative mt-8 flex min-h-[22rem] items-center justify-center">
-              <span className="absolute inset-x-8 top-5 bottom-4 rounded-[2.5rem] border-2 border-dashed border-foreground/20" />
-              <span className="absolute inset-x-16 top-12 bottom-12 rounded-[2rem] border-2 border-foreground/15" />
+            {/* Visual Arena */}
+            <div className="relative min-h-[26.5rem] rounded-[2.5rem] border-2 border-foreground bg-card/60 p-4 shadow-brutal-lg backdrop-blur-sm flex items-center justify-center overflow-visible">
+              <div className="hero-grid-lines pointer-events-none absolute inset-0 rounded-[2.5rem] opacity-30" />
+              <span className="absolute inset-4 rounded-[2rem] border-2 border-dashed border-foreground/15 pointer-events-none" />
+              <span className="absolute inset-16 rounded-[1.5rem] border-2 border-foreground/10 pointer-events-none" />
 
-              {heroOrbitServices.map((service, index) => {
+              {/* 4 Corner Orbit Cards (Spacious, Zero-Overlap) */}
+              {heroServices.map((service, index) => {
                 const orbitCard = HERO_ORBIT_CARDS[index];
                 const isSelected = selected.includes(service.name);
 
                 return (
                   <div
                     key={service.id}
-                    className={`${orbitCard?.position ?? ""} absolute z-10 w-[7.5rem] cursor-pointer`}
+                    className={`${orbitCard?.position ?? ""} absolute z-10 w-[9rem] sm:w-[9.75rem] cursor-pointer`}
                     onClick={() => toggleService(service.name)}
                   >
                     <div
-                      className={`${orbitCard?.tilt ?? ""} ${orbitCard?.animation ?? ""} rounded-[1.3rem] border-2 border-foreground bg-card p-3 text-left shadow-brutal transition-all hover:scale-105 ${
-                        isSelected ? "ring-4 ring-brand-pink" : ""
+                      className={`${orbitCard?.tilt ?? ""} ${orbitCard?.animation ?? ""} rounded-2xl border-2 border-foreground bg-card p-3 text-left shadow-brutal transition-all hover:scale-105 hover:z-30 ${
+                        isSelected ? "ring-4 ring-brand-pink bg-brand-lime" : ""
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span
-                          className={`inline-flex h-8 w-8 items-center justify-center rounded-xl border-2 border-foreground text-sm font-black shadow-brutal-sm ${service.bg_class}`}
+                          className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground text-base font-black shadow-brutal-sm ${service.bg_class}`}
                         >
                           {service.emoji}
                         </span>
-                        {isSelected && (
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-lime border border-foreground text-foreground">
-                            <Check className="h-3 w-3" strokeWidth={3} />
-                          </span>
-                        )}
+                        <span
+                          className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black shadow-brutal-sm ${
+                            isSelected ? "bg-foreground text-background" : "bg-background text-foreground"
+                          }`}
+                        >
+                          {isSelected ? <Check className="h-3 w-3" strokeWidth={3} /> : <Plus className="h-3 w-3" />}
+                        </span>
                       </div>
-                      <p className="mt-2.5 truncate text-xs font-black leading-tight">
+                      <p className="mt-2 font-black text-xs sm:text-sm leading-tight text-foreground truncate">
                         {service.name}
                       </p>
-                      <p className="mt-0.5 text-[9px] uppercase tracking-wider text-muted-foreground font-bold">
-                        {service.category}
-                      </p>
+                      <div className="mt-1 flex items-center justify-between text-[9px] font-black uppercase text-muted-foreground tracking-wider">
+                        <span>{service.category}</span>
+                        <span className="text-[8px] bg-muted px-1.5 py-0.5 rounded border border-foreground/20">
+                          {orbitCard?.tag ?? "Free"}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
               })}
 
-              <div className="relative z-20 flex w-44 flex-col items-center rounded-[2rem] border-2 border-foreground bg-card p-5 text-center shadow-brutal-lg">
+              {/* Center Hub */}
+              <div className="relative z-20 flex w-44 flex-col items-center rounded-[2rem] border-2 border-foreground bg-card p-4 text-center shadow-brutal-lg transition-transform hover:scale-105">
                 <BrandLogo size="md" className="relative z-10" />
-                <div className="mt-3 inline-flex rounded-full bg-background px-3 py-1 text-[10px] font-black uppercase tracking-wider text-foreground border border-foreground">
+                <div className="mt-2.5 inline-flex rounded-full bg-brand-yellow px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-foreground border border-foreground shadow-brutal-sm">
                   AI Triaged
                 </div>
-                <p className="mt-2 text-xs font-bold leading-4 text-muted-foreground">
-                  Instant tracking with 1 Reference Code.
+                <p className="mt-2 text-xs font-bold leading-tight text-muted-foreground">
+                  1 Code Instant Live Tracking
                 </p>
+                <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-foreground px-3 py-1 text-[10px] font-black text-background">
+                  <Gift className="h-3 w-3 text-brand-lime" /> Free Stack
+                </div>
               </div>
             </div>
           </div>
