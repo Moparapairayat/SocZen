@@ -121,7 +121,10 @@ export function RequestTracker({
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <label htmlFor="tracking-email" className="text-xs font-black uppercase text-foreground">
+              <label
+                htmlFor="tracking-email"
+                className="text-xs font-black uppercase text-foreground"
+              >
                 Request Email *
               </label>
               <div className="relative">
@@ -138,7 +141,10 @@ export function RequestTracker({
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="tracking-reference" className="text-xs font-black uppercase text-foreground">
+              <label
+                htmlFor="tracking-reference"
+                className="text-xs font-black uppercase text-foreground"
+              >
                 Reference Code *
               </label>
               <div className="relative">
@@ -285,10 +291,13 @@ export function RequestTracker({
                             )}
                           </div>
                           <div className="text-[11px] font-mono text-muted-foreground">
-                            {new Date(entry.changed_at).toLocaleString()} ({formatRelative(entry.changed_at)})
+                            {new Date(entry.changed_at).toLocaleString()} (
+                            {formatRelative(entry.changed_at)})
                           </div>
                         </div>
-                        <p className="mt-1 text-xs text-muted-foreground font-medium">{meta.summary}</p>
+                        <p className="mt-1 text-xs text-muted-foreground font-medium">
+                          {meta.summary}
+                        </p>
                       </div>
                     </li>
                   );

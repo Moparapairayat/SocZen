@@ -12,16 +12,86 @@ async function seed() {
   console.log("Seeding initial services and form fields to Neon...");
 
   const initialServices = [
-    { slug: "chatgpt-plus", name: "ChatGPT Plus", category: "AI", emoji: "🤖", bgClass: "bg-brand-lime", sortOrder: 10 },
-    { slug: "canva-pro", name: "Canva Pro", category: "Design", emoji: "🎨", bgClass: "bg-brand-cyan", sortOrder: 20 },
-    { slug: "netflix", name: "Netflix", category: "Streaming", emoji: "🎬", bgClass: "bg-brand-pink", sortOrder: 30 },
-    { slug: "spotify", name: "Spotify Premium", category: "Music", emoji: "🎵", bgClass: "bg-brand-lime", sortOrder: 40 },
-    { slug: "youtube-premium", name: "YouTube Premium", category: "Streaming", emoji: "📺", bgClass: "bg-brand-pink", sortOrder: 50 },
-    { slug: "adobe-cc", name: "Adobe Creative Cloud", category: "Design", emoji: "🖌️", bgClass: "bg-brand-violet text-white", sortOrder: 60 },
-    { slug: "notion-ai", name: "Notion AI", category: "Productivity", emoji: "📝", bgClass: "bg-brand-yellow", sortOrder: 70 },
-    { slug: "midjourney", name: "Midjourney", category: "AI", emoji: "🪄", bgClass: "bg-brand-violet text-white", sortOrder: 80 },
-    { slug: "grammarly", name: "Grammarly Premium", category: "Productivity", emoji: "✍️", bgClass: "bg-brand-cyan", sortOrder: 90 },
-    { slug: "disney-plus", name: "Disney+", category: "Streaming", emoji: "🏰", bgClass: "bg-brand-orange", sortOrder: 100 },
+    {
+      slug: "chatgpt-plus",
+      name: "ChatGPT Plus",
+      category: "AI",
+      emoji: "🤖",
+      bgClass: "bg-brand-lime",
+      sortOrder: 10,
+    },
+    {
+      slug: "canva-pro",
+      name: "Canva Pro",
+      category: "Design",
+      emoji: "🎨",
+      bgClass: "bg-brand-cyan",
+      sortOrder: 20,
+    },
+    {
+      slug: "netflix",
+      name: "Netflix",
+      category: "Streaming",
+      emoji: "🎬",
+      bgClass: "bg-brand-pink",
+      sortOrder: 30,
+    },
+    {
+      slug: "spotify",
+      name: "Spotify Premium",
+      category: "Music",
+      emoji: "🎵",
+      bgClass: "bg-brand-lime",
+      sortOrder: 40,
+    },
+    {
+      slug: "youtube-premium",
+      name: "YouTube Premium",
+      category: "Streaming",
+      emoji: "📺",
+      bgClass: "bg-brand-pink",
+      sortOrder: 50,
+    },
+    {
+      slug: "adobe-cc",
+      name: "Adobe Creative Cloud",
+      category: "Design",
+      emoji: "🖌️",
+      bgClass: "bg-brand-violet text-white",
+      sortOrder: 60,
+    },
+    {
+      slug: "notion-ai",
+      name: "Notion AI",
+      category: "Productivity",
+      emoji: "📝",
+      bgClass: "bg-brand-yellow",
+      sortOrder: 70,
+    },
+    {
+      slug: "midjourney",
+      name: "Midjourney",
+      category: "AI",
+      emoji: "🪄",
+      bgClass: "bg-brand-violet text-white",
+      sortOrder: 80,
+    },
+    {
+      slug: "grammarly",
+      name: "Grammarly Premium",
+      category: "Productivity",
+      emoji: "✍️",
+      bgClass: "bg-brand-cyan",
+      sortOrder: 90,
+    },
+    {
+      slug: "disney-plus",
+      name: "Disney+",
+      category: "Streaming",
+      emoji: "🏰",
+      bgClass: "bg-brand-orange",
+      sortOrder: 100,
+    },
   ];
 
   for (const s of initialServices) {
@@ -93,4 +163,3 @@ async function seed() {
 }
 
 seed().catch(console.error);
-

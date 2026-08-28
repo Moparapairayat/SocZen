@@ -217,7 +217,7 @@ export function RequestsAdmin({ password }: Props) {
     try {
       const res = await triggerAiTriageForRequest({ data: { password, id: requestId } });
       toast.success(
-        `AI Triage complete: Score ${res.triage.score}/100 (${res.triage.recommendation.toUpperCase()})`
+        `AI Triage complete: Score ${res.triage.score}/100 (${res.triage.recommendation.toUpperCase()})`,
       );
       void load();
     } catch (error) {
@@ -672,8 +672,8 @@ export function RequestsAdmin({ password }: Props) {
                             request.ai_score >= 80
                               ? "bg-brand-lime text-foreground"
                               : request.ai_score >= 50
-                              ? "bg-brand-yellow text-foreground"
-                              : "bg-destructive text-destructive-foreground"
+                                ? "bg-brand-yellow text-foreground"
+                                : "bg-destructive text-destructive-foreground"
                           }`}
                         >
                           <Sparkles className="h-3 w-3" />
@@ -811,37 +811,48 @@ export function RequestsAdmin({ password }: Props) {
                       {request.ai_analysis ? (
                         <div className="mt-3 space-y-2.5 text-sm">
                           <div className="flex flex-wrap items-center gap-3">
-                            <span className="text-xs font-bold text-muted-foreground">RECOMMENDATION:</span>
+                            <span className="text-xs font-bold text-muted-foreground">
+                              RECOMMENDATION:
+                            </span>
                             <span
                               className={`rounded-md px-2 py-0.5 text-xs font-bold uppercase ${
                                 request.ai_analysis.recommendation === "approve"
                                   ? "bg-brand-lime text-foreground"
                                   : request.ai_analysis.recommendation === "review"
-                                  ? "bg-brand-yellow text-foreground"
-                                  : "bg-destructive text-destructive-foreground"
+                                    ? "bg-brand-yellow text-foreground"
+                                    : "bg-destructive text-destructive-foreground"
                               }`}
                             >
                               {request.ai_analysis.recommendation}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              Risk: <strong className="text-foreground uppercase">{request.ai_analysis.riskLevel}</strong>
+                              Risk:{" "}
+                              <strong className="text-foreground uppercase">
+                                {request.ai_analysis.riskLevel}
+                              </strong>
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              Confidence: <strong className="text-foreground">{request.ai_analysis.confidence}%</strong>
+                              Confidence:{" "}
+                              <strong className="text-foreground">
+                                {request.ai_analysis.confidence}%
+                              </strong>
                             </span>
                           </div>
                           <div className="rounded-xl border border-foreground/20 bg-card p-3 text-xs font-medium text-foreground shadow-brutal-sm">
-                            <span className="font-bold">AI Rationale:</span> {request.ai_analysis.reason}
+                            <span className="font-bold">AI Rationale:</span>{" "}
+                            {request.ai_analysis.reason}
                           </div>
                           {request.ai_analysis.summary && (
                             <p className="text-xs text-muted-foreground">
-                              <strong className="text-foreground">Summary:</strong> {request.ai_analysis.summary}
+                              <strong className="text-foreground">Summary:</strong>{" "}
+                              {request.ai_analysis.summary}
                             </p>
                           )}
                         </div>
                       ) : (
                         <p className="mt-2 text-xs text-muted-foreground">
-                          No AI score generated yet. Click "Run AI Triage" to analyze this request with Gemini.
+                          No AI score generated yet. Click "Run AI Triage" to analyze this request
+                          with Gemini.
                         </p>
                       )}
                     </div>

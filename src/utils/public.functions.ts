@@ -16,10 +16,7 @@ import {
   normalizeRequestReference,
 } from "@/utils/request-tracking.server";
 import { analyzeSubscriptionRequest } from "@/utils/ai.server";
-import {
-  checkSubmissionRateLimit,
-  checkTrackingRateLimit,
-} from "@/utils/ratelimit.server";
+import { checkSubmissionRateLimit, checkTrackingRateLimit } from "@/utils/ratelimit.server";
 
 const REQUEST_STATUSES = ["pending", "approved", "rejected", "contacted"] as const;
 export type PublicRequestStatus = (typeof REQUEST_STATUSES)[number];
@@ -79,7 +76,7 @@ const trackInput = z.object({
 
 function normalizeSelectedServices(selectedServices: readonly string[]) {
   return Array.from(
-    new Set(selectedServices.map((service) => service.trim().toLowerCase()).filter(Boolean))
+    new Set(selectedServices.map((service) => service.trim().toLowerCase()).filter(Boolean)),
   );
 }
 
@@ -105,8 +102,8 @@ async function assertNoInFlightRequests(email: string, selectedServicesList: rea
     .where(
       and(
         sql`lower(${subscriptionRequests.email}) = ${normalizedEmail}`,
-        inArray(subscriptionRequests.status, ["pending", "contacted"])
-      )
+        inArray(subscriptionRequests.status, ["pending", "contacted"]),
+      ),
     );
 
   const matchedServices: string[] = [];
@@ -122,7 +119,7 @@ async function assertNoInFlightRequests(email: string, selectedServicesList: rea
     const uniqueMatches = Array.from(new Set(matchedServices));
     const label = uniqueMatches.length === 1 ? "subscription" : "subscriptions";
     throw new Error(
-      `You already have an open request for ${label}: ${uniqueMatches.join(", ")}. Wait for that request to be reviewed before sending another one.`
+      `You already have an open request for ${label}: ${uniqueMatches.join(", ")}. Wait for that request to be reviewed before sending another one.`,
     );
   }
 }
@@ -143,8 +140,8 @@ async function assertNoActiveGrants(email: string, selectedServicesList: readonl
       and(
         sql`lower(${grantedSubscriptions.email}) = ${normalizedEmail}`,
         eq(grantedSubscriptions.status, "active"),
-        or(isNull(grantedSubscriptions.expiresAt), gte(grantedSubscriptions.expiresAt, now))
-      )
+        or(isNull(grantedSubscriptions.expiresAt), gte(grantedSubscriptions.expiresAt, now)),
+      ),
     );
 
   const matchedServices: string[] = [];
@@ -158,7 +155,7 @@ async function assertNoActiveGrants(email: string, selectedServicesList: readonl
     const uniqueMatches = Array.from(new Set(matchedServices));
     const label = uniqueMatches.length === 1 ? "subscription" : "subscriptions";
     throw new Error(
-      `You already have active access to ${label}: ${uniqueMatches.join(", ")}. Request again after that access expires.`
+      `You already have active access to ${label}: ${uniqueMatches.join(", ")}. Request again after that access expires.`,
     );
   }
 }
@@ -207,7 +204,7 @@ export const getPublicCatalog = createServerFn({ method: "GET" }).handler(
       console.error("getPublicCatalog error:", error);
       return { services: [], fields: [] };
     }
-  }
+  },
 );
 
 export const submitSubscriptionRequest = createServerFn({ method: "POST" })
@@ -321,9 +318,9 @@ export const trackSubscriptionRequest = createServerFn({ method: "POST" })
           sql`lower(${subscriptionRequests.email}) = ${normalizedEmail}`,
           or(
             eq(subscriptionRequests.referenceCode, normalizedReference),
-            sql`lower(${subscriptionRequests.id}::text) = lower(${rawReference})`
-          )
-        )
+            sql`lower(${subscriptionRequests.id}::text) = lower(${rawReference})`,
+          ),
+        ),
       )
       .orderBy(desc(subscriptionRequests.createdAt))
       .limit(1);

@@ -173,9 +173,7 @@
         "form_fields_field_key_unique": {
           "name": "form_fields_field_key_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "field_key"
-          ]
+          "columns": ["field_key"]
         }
       },
       "policies": {},
@@ -311,12 +309,8 @@
           "name": "granted_subscriptions_request_id_subscription_requests_id_fk",
           "tableFrom": "granted_subscriptions",
           "tableTo": "subscription_requests",
-          "columnsFrom": [
-            "request_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["request_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -393,12 +387,8 @@
           "name": "request_status_history_request_id_subscription_requests_id_fk",
           "tableFrom": "request_status_history",
           "tableTo": "subscription_requests",
-          "columnsFrom": [
-            "request_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["request_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -517,9 +507,7 @@
         "services_slug_unique": {
           "name": "services_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -702,32 +690,17 @@
     "public.form_field_type": {
       "name": "form_field_type",
       "schema": "public",
-      "values": [
-        "text",
-        "textarea",
-        "email",
-        "select",
-        "checkbox"
-      ]
+      "values": ["text", "textarea", "email", "select", "checkbox"]
     },
     "public.grant_status": {
       "name": "grant_status",
       "schema": "public",
-      "values": [
-        "active",
-        "expired",
-        "revoked"
-      ]
+      "values": ["active", "expired", "revoked"]
     },
     "public.request_status": {
       "name": "request_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "approved",
-        "rejected",
-        "contacted"
-      ]
+      "values": ["pending", "approved", "rejected", "contacted"]
     }
   },
   "schemas": {},

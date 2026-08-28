@@ -27,11 +27,7 @@ export const formFieldTypeEnum = pgEnum("form_field_type", [
   "checkbox",
 ]);
 
-export const grantStatusEnum = pgEnum("grant_status", [
-  "active",
-  "expired",
-  "revoked",
-]);
+export const grantStatusEnum = pgEnum("grant_status", ["active", "expired", "revoked"]);
 
 export const subscriptionRequests = pgTable(
   "subscription_requests",
@@ -53,19 +49,15 @@ export const subscriptionRequests = pgTable(
     aiScore: integer("ai_score"),
     aiRecommendation: text("ai_recommendation"), // 'approve' | 'review' | 'reject'
     aiAnalysis: jsonb("ai_analysis"), // { score, reason, summary, riskLevel, confidence }
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("idx_subscription_requests_created_at").on(table.createdAt),
     index("idx_subscription_requests_status").on(table.status),
     uniqueIndex("idx_subscription_requests_reference_code").on(table.referenceCode),
     index("idx_subscription_requests_email").on(table.email),
-  ]
+  ],
 );
 
 export const services = pgTable(
@@ -80,16 +72,10 @@ export const services = pgTable(
     description: text("description"),
     isActive: boolean("is_active").notNull().default(true),
     sortOrder: integer("sort_order").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (table) => [
-    index("idx_services_active_sort").on(table.isActive, table.sortOrder),
-  ]
+  (table) => [index("idx_services_active_sort").on(table.isActive, table.sortOrder)],
 );
 
 export const formFields = pgTable(
@@ -110,16 +96,10 @@ export const formFields = pgTable(
     isBuiltin: boolean("is_builtin").notNull().default(false),
     maxLength: integer("max_length").notNull().default(1000),
     sortOrder: integer("sort_order").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (table) => [
-    index("idx_form_fields_active_sort").on(table.isActive, table.sortOrder),
-  ]
+  (table) => [index("idx_form_fields_active_sort").on(table.isActive, table.sortOrder)],
 );
 
 export const grantedSubscriptions = pgTable(
@@ -132,24 +112,18 @@ export const grantedSubscriptions = pgTable(
     requestId: uuid("request_id").references(() => subscriptionRequests.id, {
       onDelete: "set null",
     }),
-    grantedAt: timestamp("granted_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    grantedAt: timestamp("granted_at", { withTimezone: true }).notNull().defaultNow(),
     expiresAt: timestamp("expires_at", { withTimezone: true }),
     status: grantStatusEnum("status").notNull().default("active"),
     notes: text("notes"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => [
     index("idx_grants_email").on(table.email),
     index("idx_grants_expires").on(table.expiresAt),
     index("idx_grants_status").on(table.status),
-  ]
+  ],
 );
 
 export const requestStatusHistory = pgTable(
@@ -160,58 +134,38 @@ export const requestStatusHistory = pgTable(
       .notNull()
       .references(() => subscriptionRequests.id, { onDelete: "cascade" }),
     status: requestStatusEnum("status").notNull(),
-    changedAt: timestamp("changed_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    changedAt: timestamp("changed_at", { withTimezone: true }).notNull().defaultNow(),
     note: text("note"),
   },
-  (table) => [
-    index("idx_request_status_history_request_id").on(
-      table.requestId,
-      table.changedAt
-    ),
-  ]
+  (table) => [index("idx_request_status_history_request_id").on(table.requestId, table.changedAt)],
 );
 
 export const adminCredentials = pgTable("admin_credentials", {
   singleton: boolean("singleton").primaryKey().default(true),
   passwordHash: text("password_hash").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
 // Relations
-export const subscriptionRequestsRelations = relations(
-  subscriptionRequests,
-  ({ many }) => ({
-    history: many(requestStatusHistory),
-    grants: many(grantedSubscriptions),
-  })
-);
+export const subscriptionRequestsRelations = relations(subscriptionRequests, ({ many }) => ({
+  history: many(requestStatusHistory),
+  grants: many(grantedSubscriptions),
+}));
 
-export const requestStatusHistoryRelations = relations(
-  requestStatusHistory,
-  ({ one }) => ({
-    request: one(subscriptionRequests, {
-      fields: [requestStatusHistory.requestId],
-      references: [subscriptionRequests.id],
-    }),
-  })
-);
+export const requestStatusHistoryRelations = relations(requestStatusHistory, ({ one }) => ({
+  request: one(subscriptionRequests, {
+    fields: [requestStatusHistory.requestId],
+    references: [subscriptionRequests.id],
+  }),
+}));
 
-export const grantedSubscriptionsRelations = relations(
-  grantedSubscriptions,
-  ({ one }) => ({
-    request: one(subscriptionRequests, {
-      fields: [grantedSubscriptions.requestId],
-      references: [subscriptionRequests.id],
-    }),
-  })
-);
+export const grantedSubscriptionsRelations = relations(grantedSubscriptions, ({ one }) => ({
+  request: one(subscriptionRequests, {
+    fields: [grantedSubscriptions.requestId],
+    references: [subscriptionRequests.id],
+  }),
+}));
 
 // Types
 export type SubscriptionRequest = typeof subscriptionRequests.$inferSelect;

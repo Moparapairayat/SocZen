@@ -86,6 +86,7 @@ Visit `http://localhost:3000` for the public request flow and `http://localhost:
    - Copy your connection string (e.g. `postgresql://.../neondb?sslmode=require`).
 
 2. **Push Database Schema to Neon:**
+
    ```bash
    DATABASE_URL="your-neon-connection-string" npm run db:push
    ```
@@ -108,13 +109,13 @@ Visit `http://localhost:3000` for the public request flow and `http://localhost:
 
 ## 🛠️ Available Scripts
 
-| Script | Description |
-| :--- | :--- |
-| `npm run dev` | Starts local development server |
-| `npm run build` | Builds the production bundle for Vercel / serverless |
-| `npm run preview` | Previews the production build locally |
-| `npm run db:generate` | Generates SQL migrations from `src/db/schema.ts` |
-| `npm run db:push` | Pushes the Drizzle schema directly to the database |
-| `npm run db:studio` | Opens Drizzle Studio GUI for visual database management |
-| `npm run lint` | Runs ESLint |
-| `npm run format` | Formats files with Prettier |
+| Script                | Description                                             |
+| :-------------------- | :------------------------------------------------------ |
+| `npm run dev`         | Starts local development server                         |
+| `npm run build`       | Builds the production bundle for Vercel / serverless    |
+| `npm run preview`     | Previews the production build locally                   |
+| `npm run db:generate` | Generates SQL migrations from `src/db/schema.ts`        |
+| `npm run db:push`     | Pushes the Drizzle schema directly to the database      |
+| `npm run db:studio`   | Opens Drizzle Studio GUI for visual database management |
+| `npm run lint`        | Runs ESLint                                             |
+| `npm run format`      | Formats files with Prettier                             |

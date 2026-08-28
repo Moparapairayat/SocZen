@@ -100,9 +100,7 @@ function fallbackTriage(input: TriageInput): AiTriageResult {
   };
 }
 
-export async function analyzeSubscriptionRequest(
-  input: TriageInput
-): Promise<AiTriageResult> {
+export async function analyzeSubscriptionRequest(input: TriageInput): Promise<AiTriageResult> {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
   if (!apiKey) {
@@ -148,4 +146,3 @@ Provide your structured triage analysis.
     return fallbackTriage(input);
   }
 }
-

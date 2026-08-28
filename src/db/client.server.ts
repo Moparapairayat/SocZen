@@ -17,7 +17,8 @@ declare global {
 
 function createDrizzleClient() {
   const url = getDatabaseUrl();
-  const isNeon = url.includes("neon.tech") || url.includes("neondatabase") || url.includes("sslmode=require");
+  const isNeon =
+    url.includes("neon.tech") || url.includes("neondatabase") || url.includes("sslmode=require");
 
   // In Neon serverless environments (e.g. Vercel), HTTP client is the fastest and has zero connection overhead
   if (isNeon && process.env.VERCEL) {
@@ -28,7 +29,10 @@ function createDrizzleClient() {
   // Use Pool for local development or transaction-heavy environments
   const pool = new Pool({
     connectionString: url,
-    ssl: process.env.DATABASE_SSL?.toLowerCase() === "require" ? { rejectUnauthorized: false } : undefined,
+    ssl:
+      process.env.DATABASE_SSL?.toLowerCase() === "require"
+        ? { rejectUnauthorized: false }
+        : undefined,
     max: 10,
     idleTimeoutMillis: 30_000,
     connectionTimeoutMillis: 10_000,

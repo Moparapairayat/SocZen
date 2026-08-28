@@ -1,16 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import {
-  eq,
-  and,
-  or,
-  sql,
-  asc,
-  desc,
-  inArray,
-  lt,
-  isNotNull,
-} from "drizzle-orm";
+import { eq, and, or, sql, asc, desc, inArray, lt, isNotNull } from "drizzle-orm";
 import {
   db,
   subscriptionRequests,
@@ -168,7 +158,7 @@ async function deriveAdminPasswordHash(password: string, saltHex: string, iterat
     new TextEncoder().encode(password),
     "PBKDF2",
     false,
-    ["deriveBits"]
+    ["deriveBits"],
   );
   const bits = await cryptoApi.subtle.deriveBits(
     {
@@ -178,7 +168,7 @@ async function deriveAdminPasswordHash(password: string, saltHex: string, iterat
       iterations,
     },
     key,
-    ADMIN_PASSWORD_HASH_BYTES * 8
+    ADMIN_PASSWORD_HASH_BYTES * 8,
   );
   return new Uint8Array(bits);
 }
@@ -191,11 +181,7 @@ function generateSaltHex() {
 
 async function hashAdminPassword(password: string) {
   const saltHex = generateSaltHex();
-  const derived = await deriveAdminPasswordHash(
-    password,
-    saltHex,
-    ADMIN_PASSWORD_HASH_ITERATIONS
-  );
+  const derived = await deriveAdminPasswordHash(password, saltHex, ADMIN_PASSWORD_HASH_ITERATIONS);
   return [
     ADMIN_PASSWORD_HASH_SCHEME,
     String(ADMIN_PASSWORD_HASH_ITERATIONS),
@@ -251,8 +237,8 @@ async function markExpiredGrants() {
       and(
         eq(grantedSubscriptions.status, "active"),
         isNotNull(grantedSubscriptions.expiresAt),
-        lt(grantedSubscriptions.expiresAt, now)
-      )
+        lt(grantedSubscriptions.expiresAt, now),
+      ),
     );
 }
 
@@ -270,8 +256,8 @@ async function createMissingGrantsForApprovedRequests(requestIds: readonly strin
     .where(
       and(
         inArray(subscriptionRequests.id, [...requestIds]),
-        eq(subscriptionRequests.status, "approved")
-      )
+        eq(subscriptionRequests.status, "approved"),
+      ),
     );
 
   let createdCount = 0;
@@ -287,8 +273,8 @@ async function createMissingGrantsForApprovedRequests(requestIds: readonly strin
         .where(
           and(
             eq(grantedSubscriptions.requestId, req.id),
-            sql`lower(${grantedSubscriptions.serviceName}) = lower(${trimmed})`
-          )
+            sql`lower(${grantedSubscriptions.serviceName}) = lower(${trimmed})`,
+          ),
         )
         .limit(1);
 
@@ -310,7 +296,7 @@ async function createMissingGrantsForApprovedRequests(requestIds: readonly strin
 }
 
 function isRequestStatusEmailStatus(
-  status: RequestStatus
+  status: RequestStatus,
 ): status is "approved" | "rejected" | "contacted" {
   return status === "approved" || status === "rejected" || status === "contacted";
 }
@@ -324,7 +310,7 @@ async function sendRequestStatusNotifications(
     selected_services: string[];
     status: RequestStatus;
     note: string | null;
-  }>
+  }>,
 ) {
   const jobs = rows
     .filter((row) => isRequestStatusEmailStatus(row.status))
@@ -367,7 +353,7 @@ export const verifyAdminPassword = createServerFn({ method: "POST" })
 
 export const changeAdminPassword = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; nextPassword: string }) =>
-    z.object({ password: pw, nextPassword: nextPw }).parse(input)
+    z.object({ password: pw, nextPassword: nextPw }).parse(input),
   )
   .handler(async ({ data }) => {
     if (data.password === data.nextPassword) {
@@ -459,7 +445,7 @@ export const updateRequestStatus = createServerFn({ method: "POST" })
         id: z.string().uuid(),
         status: z.enum(REQUEST_STATUSES),
       })
-      .parse(input)
+      .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -515,7 +501,7 @@ export const bulkUpdateRequestStatus = createServerFn({ method: "POST" })
         ids: z.array(z.string().uuid()).min(1).max(500),
         status: z.enum(REQUEST_STATUSES),
       })
-      .parse(input)
+      .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -583,7 +569,7 @@ export const createRequestTimelineEntry = createServerFn({ method: "POST" })
           changedAt: timelineChangedAt,
           note: timelineNote,
         })
-        .parse(input)
+        .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -647,7 +633,7 @@ export const updateRequestTimelineEntry = createServerFn({ method: "POST" })
           changedAt: timelineChangedAt,
           note: timelineNote,
         })
-        .parse(input)
+        .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -662,8 +648,8 @@ export const updateRequestTimelineEntry = createServerFn({ method: "POST" })
       .where(
         and(
           eq(requestStatusHistory.id, data.entryId),
-          eq(requestStatusHistory.requestId, data.requestId)
-        )
+          eq(requestStatusHistory.requestId, data.requestId),
+        ),
       );
 
     return { ok: true as const };
@@ -677,7 +663,7 @@ export const deleteRequestTimelineEntry = createServerFn({ method: "POST" })
         requestId: z.string().uuid(),
         entryId: z.string().uuid(),
       })
-      .parse(input)
+      .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -696,8 +682,8 @@ export const deleteRequestTimelineEntry = createServerFn({ method: "POST" })
       .where(
         and(
           eq(requestStatusHistory.id, data.entryId),
-          eq(requestStatusHistory.requestId, data.requestId)
-        )
+          eq(requestStatusHistory.requestId, data.requestId),
+        ),
       );
 
     return { ok: true as const };
@@ -705,7 +691,7 @@ export const deleteRequestTimelineEntry = createServerFn({ method: "POST" })
 
 export const sendRequestUpdateEmail = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -747,7 +733,7 @@ export const sendRequestUpdateEmail = createServerFn({ method: "POST" })
 
 export const deleteRequest = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -762,20 +748,18 @@ export const bulkDeleteRequests = createServerFn({ method: "POST" })
         password: pw,
         ids: z.array(z.string().uuid()).min(1).max(500),
       })
-      .parse(input)
+      .parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
-    await db
-      .delete(subscriptionRequests)
-      .where(inArray(subscriptionRequests.id, data.ids));
+    await db.delete(subscriptionRequests).where(inArray(subscriptionRequests.id, data.ids));
     return { ok: true as const, deleted: data.ids.length };
   });
 
 // Trigger AI Triage On-Demand for any existing request
 export const triggerAiTriageForRequest = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -849,7 +833,7 @@ const serviceInput = z.object({
 
 export const createService = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; service: z.infer<typeof serviceInput> }) =>
-    z.object({ password: pw, service: serviceInput }).parse(input)
+    z.object({ password: pw, service: serviceInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -864,8 +848,11 @@ export const createService = createServerFn({ method: "POST" })
         isActive: data.service.is_active,
         sortOrder: data.service.sort_order,
       });
-    } catch (error: any) {
-      if (error?.code === "23505" || String(error).includes("duplicate key")) {
+    } catch (error: unknown) {
+      if (
+        (error && typeof error === "object" && "code" in error && error.code === "23505") ||
+        String(error).includes("duplicate key")
+      ) {
         throw new Error("That slug already exists");
       }
       throw new Error("Failed to create service");
@@ -876,7 +863,7 @@ export const createService = createServerFn({ method: "POST" })
 export const updateService = createServerFn({ method: "POST" })
   .inputValidator(
     (input: { password: string; id: string; service: z.infer<typeof serviceInput> }) =>
-      z.object({ password: pw, id: z.string().uuid(), service: serviceInput }).parse(input)
+      z.object({ password: pw, id: z.string().uuid(), service: serviceInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -895,8 +882,11 @@ export const updateService = createServerFn({ method: "POST" })
           updatedAt: new Date(),
         })
         .where(eq(services.id, data.id));
-    } catch (error: any) {
-      if (error?.code === "23505" || String(error).includes("duplicate key")) {
+    } catch (error: unknown) {
+      if (
+        (error && typeof error === "object" && "code" in error && error.code === "23505") ||
+        String(error).includes("duplicate key")
+      ) {
         throw new Error("That slug already exists");
       }
       throw new Error("Failed to update service");
@@ -906,7 +896,7 @@ export const updateService = createServerFn({ method: "POST" })
 
 export const deleteService = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -958,7 +948,7 @@ const fieldInput = z.object({
 
 export const createFormField = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; field: z.infer<typeof fieldInput> }) =>
-    z.object({ password: pw, field: fieldInput }).parse(input)
+    z.object({ password: pw, field: fieldInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -976,8 +966,11 @@ export const createFormField = createServerFn({ method: "POST" })
         maxLength: data.field.max_length,
         sortOrder: data.field.sort_order,
       });
-    } catch (error: any) {
-      if (error?.code === "23505" || String(error).includes("duplicate key")) {
+    } catch (error: unknown) {
+      if (
+        (error && typeof error === "object" && "code" in error && error.code === "23505") ||
+        String(error).includes("duplicate key")
+      ) {
         throw new Error("That field key already exists");
       }
       throw new Error("Failed to create field");
@@ -987,7 +980,7 @@ export const createFormField = createServerFn({ method: "POST" })
 
 export const updateFormField = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string; field: z.infer<typeof fieldInput> }) =>
-    z.object({ password: pw, id: z.string().uuid(), field: fieldInput }).parse(input)
+    z.object({ password: pw, id: z.string().uuid(), field: fieldInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -1033,8 +1026,11 @@ export const updateFormField = createServerFn({ method: "POST" })
           updatedAt: new Date(),
         })
         .where(eq(formFields.id, data.id));
-    } catch (error: any) {
-      if (error?.code === "23505" || String(error).includes("duplicate key")) {
+    } catch (error: unknown) {
+      if (
+        (error && typeof error === "object" && "code" in error && error.code === "23505") ||
+        String(error).includes("duplicate key")
+      ) {
         throw new Error("That field key already exists");
       }
       throw new Error("Failed to update field");
@@ -1044,7 +1040,7 @@ export const updateFormField = createServerFn({ method: "POST" })
 
 export const deleteFormField = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -1101,7 +1097,7 @@ const grantInput = z.object({
 
 export const createGrant = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; grant: z.infer<typeof grantInput> }) =>
-    z.object({ password: pw, grant: grantInput }).parse(input)
+    z.object({ password: pw, grant: grantInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -1120,7 +1116,7 @@ export const createGrant = createServerFn({ method: "POST" })
 
 export const updateGrant = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string; grant: z.infer<typeof grantInput> }) =>
-    z.object({ password: pw, id: z.string().uuid(), grant: grantInput }).parse(input)
+    z.object({ password: pw, id: z.string().uuid(), grant: grantInput }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -1144,7 +1140,7 @@ export const updateGrant = createServerFn({ method: "POST" })
 
 export const deleteGrant = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; id: string }) =>
-    z.object({ password: pw, id: z.string().uuid() }).parse(input)
+    z.object({ password: pw, id: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);
@@ -1217,7 +1213,7 @@ export const listRequesters = createServerFn({ method: "POST" })
     }
 
     const requesters = Array.from(map.values()).sort(
-      (a, b) => new Date(b.last_request_at).getTime() - new Date(a.last_request_at).getTime()
+      (a, b) => new Date(b.last_request_at).getTime() - new Date(a.last_request_at).getTime(),
     );
 
     return { requesters };
@@ -1225,7 +1221,7 @@ export const listRequesters = createServerFn({ method: "POST" })
 
 export const deleteRequesterByEmail = createServerFn({ method: "POST" })
   .inputValidator((input: { password: string; email: string }) =>
-    z.object({ password: pw, email: z.string().email().max(255) }).parse(input)
+    z.object({ password: pw, email: z.string().email().max(255) }).parse(input),
   )
   .handler(async ({ data }) => {
     await checkPassword(data.password);

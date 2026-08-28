@@ -120,8 +120,12 @@ export function BrandLogo({
             wordmarkClassName,
           )}
         >
-          <span className="text-brand-pink inline-block drop-shadow-[0_1px_1px_rgba(0,0,0,0.08)]">Soc</span>
-          <span className="ml-0.5 text-foreground drop-shadow-[0_1px_1px_rgba(0,0,0,0.05)]">Zen</span>
+          <span className="text-brand-pink inline-block drop-shadow-[0_1px_1px_rgba(0,0,0,0.08)]">
+            Soc
+          </span>
+          <span className="ml-0.5 text-foreground drop-shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
+            Zen
+          </span>
         </span>
         {showTagline ? (
           <span
