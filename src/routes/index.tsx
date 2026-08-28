@@ -510,8 +510,9 @@ function Index() {
         />
 
         <div className="relative grid w-full gap-8 py-2 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
+          {/* Left Column Content */}
           <div className="flex max-w-3xl flex-col justify-center text-center lg:text-left">
-            <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border-2 border-foreground bg-card/90 px-3.5 py-1.5 text-xs font-black shadow-brutal-sm sm:px-4 sm:text-sm lg:justify-start">
+            <div className="w-fit mx-auto lg:mx-0 inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card/90 px-4 py-1.5 text-xs font-black shadow-brutal-sm sm:text-sm">
               <Gift className="h-4 w-4 text-brand-pink" />
               100% Free Access
               <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
@@ -519,12 +520,12 @@ function Index() {
             </div>
 
             <div className="mt-5 sm:mt-6">
-              <h1 className="text-4xl font-black leading-[0.98] sm:text-5xl md:text-6xl lg:text-[4.5rem]">
+              <h1 className="text-4xl font-black leading-[0.98] sm:text-5xl md:text-6xl lg:text-[4.35rem]">
                 Premium tools,
                 <span className="mt-2 block text-gradient-hero">without the subscription.</span>
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7 md:text-lg lg:mx-0 font-medium">
-                Pick the premium tools you need (ChatGPT, Canva, Netflix, Notion & more), send one fast request, and track everything live with a single code.
+                Pick the premium tools you need (ChatGPT, Canva, Netflix, Spotify & more), send one fast request, and track everything live with a single code.
               </p>
             </div>
 
@@ -532,7 +533,7 @@ function Index() {
               <Button
                 size="lg"
                 onClick={scrollToForm}
-                className="rounded-full border-2 border-foreground bg-gradient-cta px-7 py-5 text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none sm:px-9 sm:py-6"
+                className="rounded-full border-2 border-foreground bg-gradient-cta px-8 py-5 text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none sm:px-9 sm:py-6"
               >
                 Request Access Now <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -545,103 +546,117 @@ function Index() {
               </Button>
             </div>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-2.5 lg:justify-start">
-              {heroStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-background/90 px-3.5 py-2 shadow-brutal-sm backdrop-blur-sm"
-                >
-                  <p className="text-sm font-black sm:text-base">{stat.value}</p>
-                  <p className="whitespace-nowrap text-[11px] font-bold text-muted-foreground">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+            {/* Structured 3-Column Stats */}
+            <div className="mt-8 grid grid-cols-3 gap-2.5 max-w-lg mx-auto lg:mx-0">
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-lg sm:text-xl font-black">{heroStats[0]?.value}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Active Tools</p>
+              </div>
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-lg sm:text-xl font-black">30s</p>
+                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Fast Request</p>
+              </div>
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-lg sm:text-xl font-black">1 Code</p>
+                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Live Tracking</p>
+              </div>
             </div>
           </div>
 
-          {/* Right Orbit Visual - Redesigned Spacious Staggered Hub */}
-          <div className="relative mx-auto hidden w-full max-w-[31rem] lg:block">
-            {/* Header info bar */}
-            <div className="relative z-10 flex items-center justify-between gap-4 mb-3">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground">
-                  SocZen Lineup
-                </p>
-                <h2 className="text-2xl font-black leading-none sm:text-3xl">Access Stack</h2>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-xs font-black shadow-brutal-sm">
-                  {heroStats[0]?.value} Active
-                </span>
-                <span className="animate-hero-float rounded-full border-2 border-foreground bg-card px-3 py-1 text-xs font-black text-foreground shadow-brutal-sm">
-                  <Sparkles className="inline-block mr-1 h-3.5 w-3.5 text-brand-pink" /> Instant
+          {/* Right Hero Graphic - Bento Stack Showcase */}
+          <div className="relative mx-auto hidden w-full max-w-[32rem] lg:block">
+            <div className="rounded-[2.5rem] border-2 border-foreground bg-card/90 p-5 shadow-brutal-lg backdrop-blur-md">
+              {/* Header Showcase Bar */}
+              <div className="flex items-center justify-between pb-4 border-b-2 border-foreground/10">
+                <div className="flex items-center gap-2.5">
+                  <BrandLogo size="sm" />
+                  <div>
+                    <p className="text-xs font-black leading-none">Access Stack</p>
+                    <p className="text-[10px] font-bold text-muted-foreground mt-0.5">Pick & Request instantly</p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-[11px] font-black shadow-brutal-sm">
+                  <Sparkles className="h-3 w-3" /> 100% Free
                 </span>
               </div>
-            </div>
 
-            {/* Visual Arena */}
-            <div className="relative min-h-[26.5rem] rounded-[2.5rem] border-2 border-foreground bg-card/60 p-4 shadow-brutal-lg backdrop-blur-sm flex items-center justify-center overflow-visible">
-              <div className="hero-grid-lines pointer-events-none absolute inset-0 rounded-[2.5rem] opacity-30" />
-              <span className="absolute inset-4 rounded-[2rem] border-2 border-dashed border-foreground/15 pointer-events-none" />
-              <span className="absolute inset-16 rounded-[1.5rem] border-2 border-foreground/10 pointer-events-none" />
-
-              {/* 4 Corner Orbit Cards (Spacious, Zero-Overlap) */}
-              {heroServices.map((service, index) => {
-                const orbitCard = HERO_ORBIT_CARDS[index];
-                const isSelected = selected.includes(service.name);
-
-                return (
-                  <div
-                    key={service.id}
-                    className={`${orbitCard?.position ?? ""} absolute z-10 w-[9rem] sm:w-[9.75rem] cursor-pointer`}
-                    onClick={() => toggleService(service.name)}
-                  >
+              {/* 2x2 Bento Interactive Cards Grid */}
+              <div className="grid grid-cols-2 gap-3 pt-4">
+                {[
+                  {
+                    name: "ChatGPT Plus",
+                    category: "AI Suite",
+                    emoji: "🤖",
+                    tagline: "GPT-4o & Canvas",
+                    bg: "bg-brand-lime",
+                  },
+                  {
+                    name: "Canva Pro",
+                    category: "Design",
+                    emoji: "🎨",
+                    tagline: "Brand Kit & AI Magic",
+                    bg: "bg-brand-cyan",
+                  },
+                  {
+                    name: "Spotify Premium",
+                    category: "Music",
+                    emoji: "🎵",
+                    tagline: "Ad-Free & Lossless",
+                    bg: "bg-brand-pink",
+                  },
+                  {
+                    name: "Netflix 4K",
+                    category: "Streaming",
+                    emoji: "🎬",
+                    tagline: "Ultra HD Multi-Screen",
+                    bg: "bg-brand-yellow",
+                  },
+                ].map((item) => {
+                  const isSelected = selected.includes(item.name);
+                  return (
                     <div
-                      className={`${orbitCard?.tilt ?? ""} ${orbitCard?.animation ?? ""} rounded-2xl border-2 border-foreground bg-card p-3 text-left shadow-brutal transition-all hover:scale-105 hover:z-30 ${
-                        isSelected ? "ring-4 ring-brand-pink bg-brand-lime" : ""
+                      key={item.name}
+                      onClick={() => toggleService(item.name)}
+                      className={`cursor-pointer rounded-2xl border-2 border-foreground p-3.5 text-left transition-all ${item.bg} ${
+                        isSelected
+                          ? "shadow-brutal -translate-y-1 ring-2 ring-foreground"
+                          : "shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span
-                          className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground text-base font-black shadow-brutal-sm ${service.bg_class}`}
-                        >
-                          {service.emoji}
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground bg-card text-base font-black shadow-brutal-sm">
+                          {item.emoji}
                         </span>
                         <span
-                          className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black shadow-brutal-sm ${
-                            isSelected ? "bg-foreground text-background" : "bg-background text-foreground"
+                          className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black ${
+                            isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
                           }`}
                         >
                           {isSelected ? <Check className="h-3 w-3" strokeWidth={3} /> : <Plus className="h-3 w-3" />}
                         </span>
                       </div>
-                      <p className="mt-2 font-black text-xs sm:text-sm leading-tight text-foreground truncate">
-                        {service.name}
+                      <p className="mt-2.5 font-black text-xs sm:text-sm leading-tight text-foreground">
+                        {item.name}
                       </p>
-                      <div className="mt-1 flex items-center justify-between text-[9px] font-black uppercase text-muted-foreground tracking-wider">
-                        <span>{service.category}</span>
-                        <span className="text-[8px] bg-muted px-1.5 py-0.5 rounded border border-foreground/20">
-                          {orbitCard?.tag ?? "Free"}
-                        </span>
-                      </div>
+                      <p className="text-[10px] font-bold text-foreground/80 truncate mt-0.5">
+                        {item.tagline}
+                      </p>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
 
-              {/* Center Hub */}
-              <div className="relative z-20 flex w-44 flex-col items-center rounded-[2rem] border-2 border-foreground bg-card p-4 text-center shadow-brutal-lg transition-transform hover:scale-105">
-                <BrandLogo size="md" className="relative z-10" />
-                <div className="mt-2.5 inline-flex rounded-full bg-brand-yellow px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-foreground border border-foreground shadow-brutal-sm">
-                  AI Triaged
+              {/* Bottom Live Review Ticker */}
+              <div className="mt-4 rounded-2xl border-2 border-foreground bg-background p-3 flex items-center justify-between shadow-brutal-sm">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-2.5 w-2.5 rounded-full bg-brand-lime animate-ping" />
+                  <p className="text-xs font-bold text-foreground">
+                    Instant AI Triage Active
+                  </p>
                 </div>
-                <p className="mt-2 text-xs font-bold leading-tight text-muted-foreground">
-                  1 Code Instant Live Tracking
-                </p>
-                <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-foreground px-3 py-1 text-[10px] font-black text-background">
-                  <Gift className="h-3 w-3 text-brand-lime" /> Free Stack
-                </div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded border border-foreground/20">
+                  1 Code Track
+                </span>
               </div>
             </div>
           </div>
