@@ -490,7 +490,7 @@ function Index() {
       {/* Hero Section */}
       <section
         id="top"
-        className="relative mx-auto flex min-h-[calc(100svh-5.75rem)] max-w-6xl items-stretch px-4 pb-8 pt-4 sm:min-h-[calc(100svh-7.5rem)] sm:px-6 sm:pb-12 sm:pt-6"
+        className="relative mx-auto flex min-h-[calc(100svh-5.25rem)] max-w-6xl items-stretch px-3 pb-8 pt-2 sm:min-h-[calc(100svh-7.5rem)] sm:px-6 sm:pb-12 sm:pt-6"
       >
         <div className="hero-grid-lines pointer-events-none absolute inset-0 opacity-45" />
         <span
@@ -509,79 +509,79 @@ function Index() {
           style={{ background: "color-mix(in oklab, var(--brand-yellow) 34%, transparent)" }}
         />
 
-        <div className="relative grid w-full gap-8 py-2 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
+        <div className="relative grid w-full gap-6 sm:gap-8 py-2 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
           {/* Left Column Content */}
           <div className="flex max-w-3xl flex-col justify-center text-center lg:text-left">
-            <div className="w-fit mx-auto lg:mx-0 inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-card/90 px-4 py-1.5 text-xs font-black shadow-brutal-sm sm:text-sm">
-              <Gift className="h-4 w-4 text-brand-pink" />
+            <div className="w-fit mx-auto lg:mx-0 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border-2 border-foreground bg-card/90 px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-sm font-black shadow-brutal-sm">
+              <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-pink" />
               100% Free Access
               <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
               Zero Gatekeeping
             </div>
 
-            <div className="mt-5 sm:mt-6">
-              <h1 className="text-4xl font-black leading-[0.98] sm:text-5xl md:text-6xl lg:text-[4.35rem]">
+            <div className="mt-4 sm:mt-6">
+              <h1 className="text-3xl font-black leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.35rem]">
                 Premium tools,
-                <span className="mt-2 block text-gradient-hero">without the subscription.</span>
+                <span className="mt-1.5 sm:mt-2 block text-gradient-hero">without the subscription.</span>
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7 md:text-lg lg:mx-0 font-medium">
+              <p className="mx-auto mt-3 sm:mt-4 max-w-2xl text-xs sm:text-base leading-5 sm:leading-7 text-muted-foreground lg:mx-0 font-medium">
                 Pick the premium tools you need (ChatGPT, Canva, Netflix, Spotify & more), send one fast request, and track everything live with a single code.
               </p>
             </div>
 
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <div className="mt-5 sm:mt-6 flex flex-col items-stretch gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
               <Button
                 size="lg"
                 onClick={scrollToForm}
-                className="rounded-full border-2 border-foreground bg-gradient-cta px-8 py-5 text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none sm:px-9 sm:py-6"
+                className="w-full sm:w-auto rounded-full border-2 border-foreground bg-gradient-cta px-6 sm:px-9 py-4 sm:py-6 text-sm sm:text-base font-black text-white shadow-brutal transition-all hover:translate-y-1 hover:translate-x-1 hover:shadow-none"
               >
-                Request Access Now <ArrowRight className="ml-2 h-5 w-5" />
+                Request Access Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <Button
                 type="button"
                 onClick={scrollToTracker}
-                className="rounded-full border-2 border-foreground bg-card px-7 py-5 text-base font-bold text-foreground shadow-brutal-sm transition-all hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none sm:px-8 sm:py-6"
+                className="w-full sm:w-auto rounded-full border-2 border-foreground bg-card px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base font-bold text-foreground shadow-brutal-sm transition-all hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none"
               >
                 Track Live Request
               </Button>
             </div>
 
-            {/* Structured 3-Column Stats */}
-            <div className="mt-8 grid grid-cols-3 gap-2.5 max-w-lg mx-auto lg:mx-0">
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-lg sm:text-xl font-black">{heroStats[0]?.value}</p>
-                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Active Tools</p>
+            {/* Structured 3-Column Stats - Fully Responsive */}
+            <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-2.5 max-w-lg mx-auto lg:mx-0 w-full">
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-base sm:text-xl font-black">{heroStats[0]?.value}</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Active Tools</p>
               </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-lg sm:text-xl font-black">30s</p>
-                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Fast Request</p>
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-base sm:text-xl font-black">30s</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Fast Request</p>
               </div>
-              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-3 text-center shadow-brutal-sm backdrop-blur-sm">
-                <p className="text-lg sm:text-xl font-black">1 Code</p>
-                <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Live Tracking</p>
+              <div className="rounded-2xl border-2 border-foreground bg-background/90 p-2 sm:p-3 text-center shadow-brutal-sm backdrop-blur-sm">
+                <p className="text-base sm:text-xl font-black">1 Code</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider text-muted-foreground truncate">Live Tracking</p>
               </div>
             </div>
           </div>
 
-          {/* Right Hero Graphic - Bento Stack Showcase */}
-          <div className="relative mx-auto hidden w-full max-w-[32rem] lg:block">
-            <div className="rounded-[2.5rem] border-2 border-foreground bg-card/90 p-5 shadow-brutal-lg backdrop-blur-md">
+          {/* Right Hero Graphic - Bento Stack Showcase (Visible on all screen sizes) */}
+          <div className="relative mx-auto w-full max-w-[32rem] block mt-2 sm:mt-4 lg:mt-0">
+            <div className="rounded-[2rem] sm:rounded-[2.5rem] border-2 border-foreground bg-card/90 p-3.5 sm:p-5 shadow-brutal-lg backdrop-blur-md">
               {/* Header Showcase Bar */}
-              <div className="flex items-center justify-between pb-4 border-b-2 border-foreground/10">
-                <div className="flex items-center gap-2.5">
+              <div className="flex items-center justify-between pb-3 sm:pb-4 border-b-2 border-foreground/10">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <BrandLogo size="sm" />
                   <div>
                     <p className="text-xs font-black leading-none">Access Stack</p>
                     <p className="text-[10px] font-bold text-muted-foreground mt-0.5">Pick & Request instantly</p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-3 py-1 text-[11px] font-black shadow-brutal-sm">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border-2 border-foreground bg-brand-lime px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-black shadow-brutal-sm">
                   <Sparkles className="h-3 w-3" /> 100% Free
                 </span>
               </div>
 
               {/* 2x2 Bento Interactive Cards Grid */}
-              <div className="grid grid-cols-2 gap-3 pt-4">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-3 sm:pt-4">
                 {[
                   {
                     name: "ChatGPT Plus",
@@ -617,28 +617,28 @@ function Index() {
                     <div
                       key={item.name}
                       onClick={() => toggleService(item.name)}
-                      className={`cursor-pointer rounded-2xl border-2 border-foreground p-3.5 text-left transition-all ${item.bg} ${
+                      className={`cursor-pointer rounded-xl sm:rounded-2xl border-2 border-foreground p-2.5 sm:p-3.5 text-left transition-all ${item.bg} ${
                         isSelected
                           ? "shadow-brutal -translate-y-1 ring-2 ring-foreground"
                           : "shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-foreground bg-card text-base font-black shadow-brutal-sm">
+                        <span className="inline-flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-lg sm:rounded-xl border-2 border-foreground bg-card text-xs sm:text-base font-black shadow-brutal-sm">
                           {item.emoji}
                         </span>
                         <span
-                          className={`inline-flex h-5 w-5 items-center justify-center rounded-full border border-foreground text-[10px] font-black ${
+                          className={`inline-flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full border border-foreground text-[8px] sm:text-[10px] font-black ${
                             isSelected ? "bg-foreground text-background" : "bg-card text-foreground"
                           }`}
                         >
-                          {isSelected ? <Check className="h-3 w-3" strokeWidth={3} /> : <Plus className="h-3 w-3" />}
+                          {isSelected ? <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3" strokeWidth={3} /> : <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />}
                         </span>
                       </div>
-                      <p className="mt-2.5 font-black text-xs sm:text-sm leading-tight text-foreground">
+                      <p className="mt-1.5 sm:mt-2.5 font-black text-[11px] sm:text-sm leading-tight text-foreground truncate">
                         {item.name}
                       </p>
-                      <p className="text-[10px] font-bold text-foreground/80 truncate mt-0.5">
+                      <p className="text-[9px] sm:text-[10px] font-bold text-foreground/80 truncate mt-0.5">
                         {item.tagline}
                       </p>
                     </div>
@@ -647,14 +647,14 @@ function Index() {
               </div>
 
               {/* Bottom Live Review Ticker */}
-              <div className="mt-4 rounded-2xl border-2 border-foreground bg-background p-3 flex items-center justify-between shadow-brutal-sm">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-brand-lime animate-ping" />
-                  <p className="text-xs font-bold text-foreground">
+              <div className="mt-3 sm:mt-4 rounded-xl sm:rounded-2xl border-2 border-foreground bg-background p-2.5 sm:p-3 flex items-center justify-between shadow-brutal-sm">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="flex h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-brand-lime animate-ping" />
+                  <p className="text-[10px] sm:text-xs font-bold text-foreground">
                     Instant AI Triage Active
                   </p>
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded border border-foreground/20">
+                <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-muted-foreground bg-muted px-1.5 sm:px-2 py-0.5 rounded border border-foreground/20">
                   1 Code Track
                 </span>
               </div>
