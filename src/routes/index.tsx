@@ -742,13 +742,13 @@ function Index() {
 
         {/* Filter Controls */}
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 sm:flex-wrap sm:overflow-visible sm:pb-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => setCatalogCategory(cat)}
-                className={`rounded-full border-2 border-foreground px-4 py-1.5 text-xs sm:text-sm font-bold shadow-brutal-sm transition-all ${
+                className={`shrink-0 rounded-full border-2 border-foreground px-4 py-1.5 text-xs sm:text-sm font-bold shadow-brutal-sm transition-all ${
                   catalogCategory === cat
                     ? "bg-foreground text-background -translate-y-0.5 shadow-brutal"
                     : "bg-card text-foreground hover:bg-muted"
@@ -759,7 +759,7 @@ function Index() {
             ))}
           </div>
 
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full sm:w-72 shrink-0">
             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={catalogSearch}
@@ -1168,6 +1168,29 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Sticky Floating Mobile Selection Drawer */}
+      {selected.length > 0 && (
+        <div className="fixed bottom-4 inset-x-3 z-40 block sm:hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+          <div className="flex items-center justify-between rounded-2xl border-2 border-foreground bg-card/95 p-3 text-foreground shadow-brutal-lg backdrop-blur-md">
+            <div className="flex items-center gap-2 pl-1">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-brand-lime text-xs font-black text-foreground border border-foreground shadow-brutal-sm">
+                {selected.length}
+              </span>
+              <span className="text-xs font-bold leading-tight">
+                {selected.length === 1 ? "1 tool in bag" : `${selected.length} tools in bag`}
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={scrollToForm}
+              className="inline-flex items-center gap-1 rounded-xl bg-gradient-cta px-4 py-2 text-xs font-black text-white shadow-brutal-sm active:translate-y-0.5"
+            >
+              Continue <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
